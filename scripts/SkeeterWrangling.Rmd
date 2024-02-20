@@ -30,11 +30,21 @@ list2env((loadByProduct(dpID = Mosquito,
 
 ```{r}
 variables_10041 %>% 
-  write_csv(here("data", "raw", "variables_10041"))
+  write_csv(here("data", "raw", "variables_10041.csv"))
 
 ```
 
+```{r}
+mos_pathogenpooling %>% 
+  write_csv(here("data", "raw", "mos_pathogenpooling.csv"))
 
+```
+
+```{r}
+mos_pathogenresults%>% 
+  write_csv(here("data", "raw", "mos_pathogenresults.csv"))
+
+```
       
 
 
