@@ -53,11 +53,14 @@ list2env((loadByProduct(dpID = temperature_skeeters,
          echo == FALSE)
 .
 ```
-
+#Write metadata and raw data as a CSV
 ```{r save metadata csv}
 
 # Variable names and units: temperature
 variables_00003 %>% 
   write_csv(here("Data", "Raw", "temperature_variables_00003.csv"))
 
+# Raw data: triple-aspirated air temp, 30min intervals
+TAAT_30min %>% 
+  write_csv(here("Data", "Raw", "TAAT_30min.csv"))
 ```
