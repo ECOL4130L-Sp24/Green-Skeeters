@@ -1,0 +1,63 @@
+---
+title: "temperature_grab"
+author: "Anderson Smith"
+date: "2024-02-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Load packages
+
+
+```{r load libraries, message = FALSE}
+
+library(tidyverse)
+library(neonUtilities)
+library(here)
+
+```
+
+##Assign names to codes, sites, and date ranges
+
+
+```{r}
+
+# Temperature data
+temperature_skeeters <- "DP1.00003.001"
+
+# Two selected focal sites
+my_sites <- c("DSNY", "MOAB","HARV","WOOD")
+
+# Start date (as YYYY-MM)
+start_date <- "2019-06"
+
+# End date (as YYYY-MM)
+end_date <- "2019-06"
+
+```
+
+#Pull data from NEON
+
+
+```{r}
+
+# We'll pull the ground beetle data first
+list2env((loadByProduct(dpID = temperature_skeeters, 
+                        site = my_sites, 
+                        startdate = start_date,
+                        enddate = end_date)),
+         .GlobalEnv,
+         echo == FALSE)
+.
+```
+
+```{r save metadata csv}
+
+# Variable names and units: temperature
+variables_00003 %>% 
+  write_csv(here("Data", "Raw", "temperature_variables_00003.csv"))
+
+```
