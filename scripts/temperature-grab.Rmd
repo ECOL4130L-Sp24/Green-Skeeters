@@ -58,7 +58,7 @@ list2env((loadByProduct(dpID = temperature_skeeters,
 
 # Variable names and units: temperature
 variables_00003 %>% 
-  write_csv(here("Data", "Raw", "temperature_variables_00003.csv"))
+  write_csv(here("Data", "Raw", "variables_00003.csv"))
 
 # Raw data: triple-aspirated air temp, 30min intervals
 TAAT_30min %>% 
