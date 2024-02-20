@@ -10,3 +10,5 @@ To test this hypothesis, we plan to use air temperature data along with rodent a
 ## Citations
 Citations for NEON data products: 
 NEON (National Ecological Observatory Network). Mosquito pathogen status (DP1.10041.001), RELEASE-2024. https://doi.org/10.48443/bn52-1s46. Dataset accessed from https://data.neonscience.org/data-products/DP1.10041.001/RELEASE-2024 on February 20, 2024.
+
+NEON (National Ecological Observatory Network). Triple aspirated air temperature (DP1.00003.001), RELEASE-2024. https://doi.org/10.48443/pde7-k607. Dataset accessed from https://data.neonscience.org/data-products/DP1.00003.001/RELEASE-2024 on February 20, 2024.
