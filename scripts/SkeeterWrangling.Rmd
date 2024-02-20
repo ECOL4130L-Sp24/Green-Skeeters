@@ -1,2 +1,41 @@
+```{r}
 ## "Skeeter Wrangling"
+library(tidyverse)
+library(neonUtilities)
+library(here)
+```
+
+```{r}
+# Mosquito Pathogen Status
+Mosquito <- "DP1.10041.001"
+
+# Four selected focal sites
+my_sites <- c("DSNY", "HARV","WOOD","MOAB")
+
+# Start date (as YYYY-MM)
+start_date <- "2019-06"
+
+# End date (as YYYY-MM)
+end_date <- "2019-06"
+```
+
+```{r}
+list2env((loadByProduct(dpID = Mosquito, 
+                        site = my_sites, 
+                        #include.provisional = TRUE,
+                        startdate = start_date,
+                        enddate = end_date)),
+         .GlobalEnv)
+```
+
+```{r}
+variables_10041 %>% 
+  write_csv(here("data", "raw", "variables_10041"))
+
+```
+
+
+      
+
+
 

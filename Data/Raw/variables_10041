@@ -1,0 +1,60 @@
+table,fieldName,description,dataType,units,downloadPkg,pubFormat,primaryKey,categoricalCodeName
+mos_pathogenpooling,uid,Unique ID within NEON database; an identifier for the record,string,NA,basic,asIs,N,
+mos_pathogenpooling,namedLocation,Name of the measurement location in the NEON database,string,NA,basic,asIs,N,
+mos_pathogenpooling,domainID,Unique identifier of the NEON domain,string,NA,basic,asIs,N,
+mos_pathogenpooling,siteID,NEON site code,string,NA,basic,asIs,N,
+mos_pathogenpooling,startCollectDate,Earliest known collection date for this sample,dateTime,NA,basic,yyyy-MM-dd'T'HH:mm'Z'(floor),N,
+mos_pathogenpooling,endCollectDate,Latest known collection date for this sample,dateTime,NA,basic,yyyy-MM-dd'T'HH:mm'Z'(floor),N,
+mos_pathogenpooling,testingID,Identifier for the group of specimens for testing,string,NA,basic,asIs,N,
+mos_pathogenpooling,testingVialID,"Identifier for the vial containing specimens for testing (e.g., pathogen testing, chemical analysis, etc.)",string,NA,basic,asIs,Y,
+mos_pathogenpooling,poolSize,Number of individuals in the pathogen testing pool,unsigned integer,number,basic,integer,N,
+mos_pathogenpooling,dataQF,Data quality flag,string,NA,basic,asIs,N,
+mos_pathogenpooling,publicationDate,Date of data publication on the NEON data portal,dateTime,NA,appended by stackByTable,NA,N,
+mos_pathogenpooling,release,Identifier for data release,string,NA,appended by stackByTable,NA,N,
+mos_pathogenqa,uid,Unique ID within NEON database; an identifier for the record,string,NA,expanded,asIs,N,
+mos_pathogenqa,laboratoryName,Name of the laboratory or facility that is processing the sample,string,NA,expanded,asIs,N,
+mos_pathogenqa,testedDate,Date test was conducted,dateTime,NA,expanded,yyyy-MM-dd(floor),Y,
+mos_pathogenqa,batchID,Identifier for batch or analytical run,string,NA,expanded,asIs,Y,
+mos_pathogenqa,cqValue,Quantification cycle or threshold number,integer,NA,expanded,asIs,N,
+mos_pathogenqa,controlType,Control type for test or experiment,string,NA,expanded,LOV,Y,tck.controlType
+mos_pathogenqa,criteriaMet,Whether or not criteria are met,string,NA,expanded,LOV,N,Yes or No choice
+mos_pathogenqa,remarks,Technician notes; free text comments accompanying the record,string,NA,expanded,asIs,N,
+mos_pathogenqa,dataQF,Data quality flag,string,NA,expanded,asIs,N,
+mos_pathogenresults,uid,Unique ID within NEON database; an identifier for the record,string,NA,basic,asIs,N,
+mos_pathogenresults,namedLocation,Name of the measurement location in the NEON database,string,NA,basic,asIs,N,
+mos_pathogenresults,domainID,Unique identifier of the NEON domain,string,NA,basic,asIs,N,
+mos_pathogenresults,siteID,NEON site code,string,NA,basic,asIs,N,
+mos_pathogenresults,nlcdClass,National Land Cover Database Vegetation Type Name,string,NA,basic,asIs,N,
+mos_pathogenresults,decimalLatitude,"The geographic latitude (in decimal degrees, WGS84) of the geographic center of the reference area",real,decimalDegree,basic,*.######(round),N,
+mos_pathogenresults,decimalLongitude,"The geographic longitude (in decimal degrees, WGS84) of the geographic center of the reference area",real,decimalDegree,basic,*.######(round),N,
+mos_pathogenresults,geodeticDatum,Model used to measure horizontal position on the earth,string,NA,basic,UPPER,N,
+mos_pathogenresults,coordinateUncertainty,The horizontal distance (in meters) from the given decimalLatitude and decimalLongitude describing the smallest circle containing the whole of the Location. Zero is not a valid value for this term,real,meter,basic,*.#(round),N,
+mos_pathogenresults,elevation,Elevation (in meters) above sea level,real,meter,basic,*.#(round),N,
+mos_pathogenresults,elevationUncertainty,Uncertainty in elevation values (in meters),real,meter,basic,*.#(round),N,
+mos_pathogenresults,startCollectDate,Earliest known collection date for this sample,dateTime,NA,basic,yyyy-MM-dd'T'HH:mm'Z'(floor),N,
+mos_pathogenresults,endCollectDate,Latest known collection date for this sample,dateTime,NA,basic,yyyy-MM-dd'T'HH:mm'Z'(floor),N,
+mos_pathogenresults,testedDate,Date test was conducted,dateTime,NA,basic,yyyy-MM-dd'T'HH:mm'Z'(floor),N,
+mos_pathogenresults,testingVialID,"Identifier for the vial containing specimens for testing (e.g., pathogen testing, chemical analysis, etc.)",string,NA,basic,asIs,Y,
+mos_pathogenresults,deprecatedVialID,"Identifier on vial label, if different from standard ID",string,NA,basic,asIs,N,
+mos_pathogenresults,dnaSampleID,Identifier for DNA sample,string,NA,basic,asIs,N,
+mos_pathogenresults,dnaSampleCode,Barcode of a DNA sample,string,NA,basic,asIs,N,
+mos_pathogenresults,sampleCondition,Condition of a sample,string,NA,basic,LOV,N,mos.sampleCompromised
+mos_pathogenresults,testProtocolVersion,The protocol version used to test the sample,string,NA,basic,LOV,N,mos.testProtocol
+mos_pathogenresults,testMethod,Method used to conduct test,string,NA,basic,LOV,N,mos.testMethod
+mos_pathogenresults,testResult,Result of the test,string,NA,basic,LOV,N,testResult
+mos_pathogenresults,testPathogenName,The name of the pathogen,string,NA,basic,asIs,Y,
+mos_pathogenresults,taxonID,"Species code, based on one or more sources",string,NA,basic,asIs,N,
+mos_pathogenresults,testNumber,Test number in a sequence of tests,unsigned integer,NA,basic,integer,Y,
+mos_pathogenresults,finalResult,Whether or not this is the conclusive test result for this sample,string,NA,basic,LOV,N,Yes or No choice
+mos_pathogenresults,batchID,Identifier for batch or analytical run,string,NA,basic,asIs,N,
+mos_pathogenresults,cqValue,Quantification cycle or threshold number,integer,NA,basic,asIs,N,
+mos_pathogenresults,locus,Name of genetic marker sequenced,string,NA,basic,LOV,N,mos.locus
+mos_pathogenresults,percentIdentity,Percent match between sample and reference sequence,unsigned integer,percent,basic,integer,N,
+mos_pathogenresults,sequenceDatabase,Name of database where sequence is stored,string,NA,basic,LOV,N,sequenceDatabase
+mos_pathogenresults,sequenceDatabaseID,Identifier for sample in sequence database,string,NA,basic,asIs,N,
+mos_pathogenresults,extractDepleted,Whether or not sample extract is depleted,string,NA,basic,LOV,N,Yes or No choice
+mos_pathogenresults,remarks,Technician notes; free text comments accompanying the record,string,NA,basic,asIs,N,
+mos_pathogenresults,testedBy,An identifier for the technician who tested the sample,string,NA,basic,obfuscate,N,
+mos_pathogenresults,laboratoryName,Name of the laboratory or facility that is processing the sample,string,NA,basic,asIs,N,
+mos_pathogenresults,publicationDate,Date of data publication on the NEON data portal,dateTime,NA,appended by stackByTable,NA,N,
+mos_pathogenresults,release,Identifier for data release,string,NA,appended by stackByTable,NA,N,
