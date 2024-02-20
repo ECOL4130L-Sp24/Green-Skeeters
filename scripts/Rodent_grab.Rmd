@@ -1,0 +1,163 @@
+---
+title: "Accessing NEON raw data"
+author: "Your Name"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+date: "YYYY-MM-DD"
+---
+
+Using R to pull NEON data directly from the [Data Portal website](https://data.neonscience.org/data-products/explore) allows us to avoid the frustration of unzipping nested folders and having to manually combine multiple months and/or sites of data into a single file to analyze. 
+
+Pulling our data via scripts also makes our research process more transparent and reproducible!
+
+The first step to get ready to "grab" NEON data is to install the `neonUtilities` package, using the code chunk below. We will also install the `here` package, which we will use later on when saving our raw data:
+
+```{r load libraries, message = FALSE}
+
+### Un-hash the following two lines to run the "install" commands the first time you run this chunk, then re-hash both lines to avoid problems knitting your Markdown document
+
+#install.packages("neonUtilities")
+#install.packages("here")
+
+library(tidyverse)
+library(neonUtilities)
+library(here)
+
+```
+
+## Specify NEON data products & sites
+
+For each type of [NEON data](https://data.neonscience.org/) you want to download from the Portal, you will need to specify:
+
+-   The specific data product ID (e.g., "DP1.10086.001")
+
+-   The 4-letter code for your target NEON sites (e.g., "HARV"). Omit to download all available dates (resulting file may be *large*)
+
+-   The YYYY-MM start and end dates (e.g., "2019-12"). Omit to download all available dates (resulting file may be *large*).
+
+It will likely be helpful to visit the [Data Portal](https://data.neonscience.org/data-products/explore) through a web browser to find your product ID and target site codes.
+
+Update the code chunk below to specify your target data product(s) and site(s). If you want to pull all sites and available dates, you can leave those lines blank.
+```{r}
+
+# Hantavirus rodent pathogen status
+Rodent_pathogen_status_hantavirus <- "DP1.10064.001"
+
+# Precipitation
+precipitation <- "DP1.00006.001"
+
+# Two selected focal sites
+my_sites <- c("DSNY", "HARV", "WOOD", "MOAB")
+
+# Start date (as YYYY-MM)
+start_date <- "2019-06"
+
+# End date (as YYYY-MM)
+end_date <- "2020-06"
+
+```
+
+## Set up data-grab commands: 
+When using the `loadByProduct()` command within neonUtilities, you are only able to download one data package at a time.  
+
+NEON data are saved to R as a *list* of data files by default. 
+We use the `list2env()` command as a wrapper so that data files are each saved as separate objects in our RStudio environment.
+
+After you initiate the following command, you will see the following in the Console: 
+
+> Finding available files ================================================| 100%  
+> Rate limit reached. Pausing for 99 seconds to reset. **(or not, if your file is small)**  
+> Continuing will download files totaling approximately 5.578909 MB.  
+> Do you want to proceed y/n: 
+  
+**You will need to type y in the Console to proceed with the download**
+
+```{r}
+
+# We'll pull the rodent data first
+list2env((loadByProduct(dpID = Rodent_pathogen_status_hantavirus, 
+                        site = my_sites, 
+                        include.provisional = TRUE,
+                        startdate = start_date,
+                        enddate = end_date)),
+         .GlobalEnv)
+
+```
+## Save raw data files:
+First, we'll save a "full" raw version of the relevant data files that we can use as a starting point for future analyses. This is important so we do not need to go through the download steps every time we are working on our project!
+
+To ensure your work is reproducible, remember to *always* save a copy of the metadata file ("variables" file within NEON downloads) within your `raw` data folder.  
+
+You should **also** access the data product on the [NEON Data Portal](https://data.neonscience.org/data-products/explore) and save a copy of the "Quick Start Guide" to your `raw` data folder as a .PDF or .md file.
+
+```{r save metadata csv}
+
+# Variable names and units: ground beetles
+variables_10022 %>% 
+  write_csv(here("data", "raw", "variables_10022.csv"))
+
+```
+Since our beetle count data would be in the "bet_sorting" table, we want to save that file to our `raw` data subfolder. It is likely also prudent to go ahead and save the bet_fielddata, since that provides information about the sampling sites. 
+
+Remember, if you do *not* initially save a raw file but realize you need it later, you can always re-run the NEON data download commands for the same site(s) and date range to save additional files. 
+
+```{r save raw data from relevant data tables}
+
+# bet_sorting
+table_name %>% 
+  write_csv(here("data", "raw", "table_name.csv"))
+
+# bet_fielddata
+table_name %>% 
+  write_csv(here("data", "raw", "table_name.csv"))
+
+```
+
+## Download subsequent data product(s)
+We'll repeat the commands above to download and save the raw data for our second data product of interest (precipitation).
+
+```{r}
+
+# We'll pull the ground beetle data first
+list2env((loadByProduct(dpID =, 
+                        site = , 
+                        #include.provisional = TRUE,
+                        startdate = ,
+                        enddate = )),
+         .GlobalEnv)
+
+```
+Save our variables metadata file:
+```{r save metadata csv}
+
+# Variable names and units: precipitation
+table_name %>% 
+  write_csv(here("data", "raw", "table_name.csv"))
+
+```
+
+Save individual raw data files of interest (here, throughfull precipitation every 30 minutes):
+```{r save raw data from relevant data tables}
+
+# THRPRE_30min
+table_name %>% 
+  write_csv(here("data", "raw", "table_name.csv"))
+
+```
+
+Because the downloads can occupy a lot of space on our computer (& in our global environment), we'll often do a "clear" command once we've saved our raw data. 
+
+```{r}
+
+# Clear global environment
+rm(list = ls())
+
+```
+
+
+We would then start our data exploration/cleaning in a separate .Rmd file that begins with:
+* Loading the `tidyverse` and `here` libraries again  
+* Using a `read_csv()` command to import our raw data files from the `raw` subfolder  
