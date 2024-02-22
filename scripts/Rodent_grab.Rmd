@@ -46,17 +46,14 @@ Update the code chunk below to specify your target data product(s) and site(s). 
 # Hantavirus rodent pathogen status
 Rodent_pathogen_status_hantavirus <- "DP1.10064.001"
 
-# Precipitation
-precipitation <- "DP1.00006.001"
-
 # Two selected focal sites
 my_sites <- c("DSNY", "HARV", "WOOD", "MOAB")
 
 # Start date (as YYYY-MM)
-start_date <- "2019-06"
+start_date <- "2019-01"
 
 # End date (as YYYY-MM)
-end_date <- "2020-06"
+end_date <- "2022-10"
 
 ```
 
@@ -95,9 +92,9 @@ You should **also** access the data product on the [NEON Data Portal](https://da
 
 ```{r save metadata csv}
 
-# Variable names and units: ground beetles
-variables_10022 %>% 
-  write_csv(here("data", "raw", "variables_10022.csv"))
+# Variable names and units: rodents
+variables_10064 %>% 
+  write_csv(here("data", "raw", "variables_10064.csv"))
 
 ```
 Since our beetle count data would be in the "bet_sorting" table, we want to save that file to our `raw` data subfolder. It is likely also prudent to go ahead and save the bet_fielddata, since that provides information about the sampling sites. 
@@ -107,46 +104,17 @@ Remember, if you do *not* initially save a raw file but realize you need it late
 ```{r save raw data from relevant data tables}
 
 # bet_sorting
-table_name %>% 
-  write_csv(here("data", "raw", "table_name.csv"))
+rpt_bloodtesting %>% 
+  write_csv(here("data", "raw", "rpt_bloodtesting.csv"))
 
-# bet_fielddata
-table_name %>% 
-  write_csv(here("data", "raw", "table_name.csv"))
 
 ```
 
 ## Download subsequent data product(s)
 We'll repeat the commands above to download and save the raw data for our second data product of interest (precipitation).
 
-```{r}
-
-# We'll pull the ground beetle data first
-list2env((loadByProduct(dpID =, 
-                        site = , 
-                        #include.provisional = TRUE,
-                        startdate = ,
-                        enddate = )),
-         .GlobalEnv)
-
-```
-Save our variables metadata file:
-```{r save metadata csv}
-
-# Variable names and units: precipitation
-table_name %>% 
-  write_csv(here("data", "raw", "table_name.csv"))
-
-```
-
 Save individual raw data files of interest (here, throughfull precipitation every 30 minutes):
-```{r save raw data from relevant data tables}
 
-# THRPRE_30min
-table_name %>% 
-  write_csv(here("data", "raw", "table_name.csv"))
-
-```
 
 Because the downloads can occupy a lot of space on our computer (& in our global environment), we'll often do a "clear" command once we've saved our raw data. 
 

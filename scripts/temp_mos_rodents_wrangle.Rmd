@@ -1,0 +1,63 @@
+---
+title: "Uniting Mosquito, Rodent, and Temperature Datasets"
+author: "Anderson Smith"
+date: "2024-02-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Preliminary cleaning/wrangling of NEON data for analysis
+
+Grabbing temperature, rodent, and mosquito data to test climatic (latitudinal)
+variation in viral pathogen load
+
+```{r, echo == FALSE}
+#Load packages and raw data
+library(tidyverse)
+library(here)
+library(lubridate)
+
+temp_raw <- read_csv(here("Data", "Raw", "TAAT_30min.csv"))
+
+mosquito_path_raw <- read_csv(here("Data", "Raw", "mos_pathogenresults.csv"))
+
+rodent_raw <- read_csv(here("Data", "Raw", "rpt_bloodtesting.csv"))
+
+```
+
+##Cleaning each tibble:
+
+```{r}
+#Clean temperature 
+temp_clean <- temp_raw %>% 
+  select(siteID, startDateTime, endDateTime, tempTripleMean, tempTripleMaximum,
+         tempTripleMinimum, tempTripleVariance) %>% 
+  drop_na()
+
+#Clean mosquitoes
+mosquito_clean <- mosquito_path_raw %>% 
+  select(siteID, t)
+  
+```
+
+```{r}
+#Group temperature by moth 
+temp_day <- temp_clean %>% 
+  group_by(siteID, floor_date(startDateTime, 'day')) %>% 
+  summarize(avg_temp = mean(tempTripleMean), 
+            min_temp = mean(tempTripleMinimum),
+            max_temp = mean(tempTripleMaximum), 
+            var_temp = mean(tempTripleVariance))
+  
+```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+# Create/check on "processed" data folder, write data into CSV within folder
+ifelse(!dir.exists(here("data", "processed")), dir.create(here("data", "processed")), "Folder exists already")
+
+temp_clean %>% 
+  write_csv(here("data", "processed", "temp_clean.csv"))
+```
