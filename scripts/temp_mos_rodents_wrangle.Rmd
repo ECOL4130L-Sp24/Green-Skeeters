@@ -68,4 +68,14 @@ ifelse(!dir.exists(here("data", "processed")), dir.create(here("data", "processe
 
 temp_clean %>% 
   write_csv(here("data", "processed", "temp_clean.csv"))
+
+temp_day %>% 
+  write_csv(here("data", "processed", "temp_day.csv"))
+
+rodent_clean %>% 
+  write_csv(here("data", "processed", "rodent_clean.csv"))
+
+mosquito_clean %>% 
+  write_csv(here("data", "processed", "mosquito_clean.csv"))
+
 ```
