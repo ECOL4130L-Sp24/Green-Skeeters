@@ -39,7 +39,15 @@ temp_clean <- temp_raw %>%
 
 #Clean mosquitoes
 mosquito_clean <- mosquito_path_raw %>% 
-  select(siteID, t)
+  select(siteID, testResult, testPathogenName, taxonID, startCollectDate,
+         endCollectDate) %>% 
+  drop_na() %>% 
+  mutate(testResult = as_factor(testResult))
+
+#Clean rodents
+rodent_clean <- rodent_raw %>% 
+  select(siteID, collectDate, testResult) %>% 
+  mutate(testResult = as_factor(testResult))
   
 ```
 
