@@ -52,9 +52,16 @@ rodent_clean <- rodent_raw %>%
 ```
 
 ```{r}
-#Group temperature by moth 
+#Group temperature by day 
 temp_day <- temp_clean %>% 
   group_by(siteID, floor_date(startDateTime, 'day')) %>% 
+  summarize(avg_temp = mean(tempTripleMean), 
+            min_temp = mean(tempTripleMinimum),
+            max_temp = mean(tempTripleMaximum), 
+            var_temp = mean(tempTripleVariance))
+
+temp_month <- temp_clean %>% 
+  group_by(siteID, floor_date(startDateTime, 'month')) %>% 
   summarize(avg_temp = mean(tempTripleMean), 
             min_temp = mean(tempTripleMinimum),
             max_temp = mean(tempTripleMaximum), 
@@ -72,10 +79,27 @@ temp_clean %>%
 temp_day %>% 
   write_csv(here("data", "processed", "temp_day.csv"))
 
+temp_month %>% 
+  write_csv(here("data", "processed", "temp_month.csv"))
+
 rodent_clean %>% 
   write_csv(here("data", "processed", "rodent_clean.csv"))
 
 mosquito_clean %>% 
   write_csv(here("data", "processed", "mosquito_clean.csv"))
 
+```
+
+```{r}
+#Preliminary temperature boxplot/jitter by site
+ggplot(temp_month, 
+       aes(x = siteID,
+       y = avg_temp, 
+       col = siteID)) +
+  geom_boxplot(alpha = 0) +
+  geom_jitter() +
+  theme_classic()
+
+  
+  
 ```
