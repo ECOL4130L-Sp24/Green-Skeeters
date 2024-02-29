@@ -91,19 +91,22 @@ mosquito_clean %>%
 ```
 
 ```{r}
-#Preliminary temperature boxplot/jitter by site
+#Preliminary temperature boxplot/jitter by site, save plot
 ggplot(temp_month, 
        aes(x = siteID,
        y = avg_temp, 
        col = siteID)) +
   geom_boxplot(alpha = 0) +
   geom_jitter() +
-  ggtitle("Plot of average temperature by site") +
   xlab("Site ID") + ylab("Average Temperature(C)") +
   theme(plot.title = element_text(hjust = 1)) +
   theme_classic() 
   
+ifelse(!dir.exists(here ("outputs")), dir.create(here("processed")), "Folder exists already")
 
-  
+  ggsave(filename = "./outputs/prelim_tempplot_site.png", 
+       plot = last_plot(), 
+       width = 5, height = 3, units = "in",
+       dpi = 300)
   
 ```
