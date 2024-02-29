@@ -98,7 +98,11 @@ ggplot(temp_month,
        col = siteID)) +
   geom_boxplot(alpha = 0) +
   geom_jitter() +
-  theme_classic()
+  ggtitle("Plot of average temperature by site") +
+  xlab("Site ID") + ylab("Average Temperature(C)") +
+  theme(plot.title = element_text(hjust = 1)) +
+  theme_classic() 
+  
 
   
   
