@@ -110,3 +110,16 @@ ifelse(!dir.exists(here ("outputs")), dir.create(here("processed")), "Folder exi
        dpi = 300)
   
 ```
+
+```{r}
+#Scatter plot for temperature over month
+temp_month <- temp_month %>% 
+  rename(date = "floor_date(startDateTime, \"month\")")
+ggplot(data = temp_month, 
+       mapping = aes(x = date,
+                     y = avg_temp,
+                     col = siteID)) + 
+  geom_point() + 
+  theme_bw()
+```
+

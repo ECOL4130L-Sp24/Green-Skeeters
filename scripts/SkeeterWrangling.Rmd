@@ -46,6 +46,15 @@ mos_pathogenresults%>%
 
 ```
       
+```{r}
+pacman::p_load(tidyverse, here, cowplot, viridis)
+```
 
+```{r}
+glimpse(mos_pathogenresults)
+```
+```{r}
+
+```
 
 
