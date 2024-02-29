@@ -112,7 +112,7 @@ ifelse(!dir.exists(here ("outputs")), dir.create(here("processed")), "Folder exi
 ```
 
 ```{r}
-#Scatter plot for temperature over month
+#Scatter plot for temperature over months per siteID
 temp_month <- temp_month %>% 
   rename(date = "floor_date(startDateTime, \"month\")")
 ggplot(data = temp_month, 
