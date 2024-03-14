@@ -1,0 +1,32 @@
+---
+title: "Deliverable 3 Data Analyses"
+output: uhhh
+date: "2024-03-14"
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+
+
+```{r}
+
+library(tidyverse)
+library(here)
+
+```
+
+```{r}
+# Read in data
+Temp_raw <- read_csv(here("data", "raw", "TAAT_30min.csv"))
+Mos_raw <- read_csv(here("data", "raw", "mos_pathogenresults.csv"))
+Rodent_raw <- read_csv(here("data", "raw", "rpt_bloodtesting.csv"))
+
+# Preview the data
+```
+
+```{r}
+Temp <- Temp_raw %>% 
+  drop_na()
+```
+
