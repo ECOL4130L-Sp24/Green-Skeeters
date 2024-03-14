@@ -57,8 +57,9 @@ pacman::p_load(tidyverse, here, cowplot, viridis)
 
 ```{r}
 # viewing data from pathogen results
-glimpse(mos_pathogenresults)
+glimpse(mosquito_clean)
 ```
+
 ```{r}
 
 ```
