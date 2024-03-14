@@ -1,5 +1,5 @@
 ```{r}
-## "Skeeter Wrangling"
+## "Skeeter Wrangling" loading appropiate packages
 library(tidyverse)
 library(neonUtilities)
 library(here)
@@ -19,7 +19,8 @@ start_date <- "2019-01"
 end_date <- "2022-10"
 ```
 
-```{r}
+```{r} 
+#downloading mosquito data
 list2env((loadByProduct(dpID = Mosquito, 
                         site = my_sites, 
                         #include.provisional = TRUE,
@@ -29,30 +30,36 @@ list2env((loadByProduct(dpID = Mosquito,
 ```
 
 ```{r}
+# putting variable data in raw folder
 variables_10041 %>% 
   write_csv(here("data", "raw", "variables_10041.csv"))
 
 ```
 
 ```{r}
+# putting mosquito data in raw folder
 mos_pathogenpooling %>% 
   write_csv(here("data", "raw", "mos_pathogenpooling.csv"))
 
 ```
 
 ```{r}
+# putting mosquito data in raw folder
 mos_pathogenresults%>% 
   write_csv(here("data", "raw", "mos_pathogenresults.csv"))
 
 ```
       
 ```{r}
+# loading appropriate packages to graph
 pacman::p_load(tidyverse, here, cowplot, viridis)
 ```
 
 ```{r}
-glimpse(mos_pathogenresults)
+# viewing data from pathogen results
+glimpse(mosquito_clean)
 ```
+
 ```{r}
 
 ```
