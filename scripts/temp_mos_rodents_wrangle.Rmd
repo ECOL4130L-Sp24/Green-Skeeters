@@ -102,9 +102,9 @@ ggplot(temp_month,
   theme(plot.title = element_text(hjust = 1)) +
   theme_classic() 
   
-ifelse(!dir.exists(here ("outputs")), dir.create(here("processed")), "Folder exists already")
+ifelse(!dir.exists(here ("outputs")), dir.create(here("outputs")), "Folder exists already")
 
-  ggsave(filename = "./outputs/prelim_tempplot_site.png", 
+  ggsave(filename = here("outputs", "prelim_tempplot_site.png"), 
        plot = last_plot(), 
        width = 5, height = 3, units = "in",
        dpi = 300)
@@ -113,13 +113,21 @@ ifelse(!dir.exists(here ("outputs")), dir.create(here("processed")), "Folder exi
 
 ```{r}
 #Scatter plot for temperature over months per siteID
-temp_month <- temp_month %>% 
+temp_month2 <- temp_month %>% 
   rename(date = "floor_date(startDateTime, \"month\")")
-ggplot(data = temp_month, 
+
+ggplot(data = temp_month2, 
        mapping = aes(x = date,
                      y = avg_temp,
                      col = siteID)) + 
   geom_point() + 
   theme_bw()
+
+ifelse(!dir.exists(here ("outputs")), dir.create(here("outputs")), "Folder exists already")
+
+ggsave(filename = here("outputs" , "avgtempvsdate.png"), 
+       plot = last_plot(), 
+       width = 5, height = 3, units = "in",
+       dpi = 300)
 ```
 
