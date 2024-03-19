@@ -28,7 +28,7 @@ rodent_clean <- read_csv(here("data", "processed", "rodent_clean.csv"))
 ```
 
 ```{r}
-#Mutate rodent data so that name is consistent with other sheets (GRRRRRR)
+#Join data sheets
 mosquito_day <- mosquito_clean %>% 
   select(-startCollectDate) %>% 
   mutate(collectDate = as_date(endCollectDate)) %>% 
@@ -42,4 +42,5 @@ temp_mos_raw <-
   full_join(., rodent_clean)
 
 ```
+
 
