@@ -44,6 +44,7 @@ temp_mos_raw <-
 
 <<<<<<< HEAD
 ```{r}
+# Added a binary test result for mosquito data in order to easily run statistical tests
 mosquito_binary <- mosquito_day %>% 
   mutate(testResult2= ifelse(testResult=="Positive",1,0))
 ```
