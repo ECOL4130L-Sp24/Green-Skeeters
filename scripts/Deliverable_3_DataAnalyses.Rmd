@@ -7,6 +7,8 @@ date: "2024-03-14"
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 ```
 
+## ANOVA comparing temperature and mosquito pathogen positivity across sites
+
 ```{r}
 # Loading appropriate packages
 
@@ -37,16 +39,20 @@ temp_day_join <-temp_day %>%
   rename("collectDate"= `floor_date(startDateTime, "day")`)
 
 temp_mos_raw <-
-  full_join(mosquito_day, temp_day_join) %>% 
-  full_join(., rodent_clean)
+  full_join(mosquito_binary, temp_day_join) %>% 
+  full_join(., rodent_binary) %>% 
+  select(-testResult)
+
 
 ```
 
-<<<<<<< HEAD
+
 ```{r}
+#Convert rodent and mosquito test data into binary values
 mosquito_binary <- mosquito_day %>% 
-  mutate(testResult2= ifelse(testResult=="Positive",1,0))
+  mutate(testResult_mos= ifelse(testResult=="Positive",1,0))
+
+rodent_binary <- rodent_clean %>% 
+  mutate(testResult_rodent= ifelse(testResult=="Positive",1,0))
 ```
-=======
->>>>>>> 27229d122628b6adb63c085ac6a09eafc5da8827
 
