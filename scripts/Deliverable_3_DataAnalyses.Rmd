@@ -18,9 +18,9 @@ library(here)
 
 ```{r}
 # Read in data
-Temp_raw <- read_csv(here("data", "raw", "TAAT_30min.csv"))
-Mos_raw <- read_csv(here("data", "raw", "mos_pathogenresults.csv"))
-Rodent_raw <- read_csv(here("data", "raw", "rpt_bloodtesting.csv"))
+temp_raw <- read_csv(here("data", "raw", "TAAT_30min.csv"))
+mos_raw <- read_csv(here("data", "raw", "mos_pathogenresults.csv"))
+rodent_raw <- read_csv(here("data", "raw", "rpt_bloodtesting.csv"))
 
 # Preview the data
 ```
