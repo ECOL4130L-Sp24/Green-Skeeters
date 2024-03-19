@@ -7,9 +7,8 @@ date: "2024-03-14"
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 ```
 
-
-
 ```{r}
+# Loading appropriate packages
 
 library(tidyverse)
 library(here)
@@ -45,5 +44,10 @@ temp_mos_raw <-
   full_join(mosquito_day, temp_day_join) %>% 
   full_join(., rodent_clean)
 
+```
+
+```{r}
+mosquito_binary <- mosquito_day %>% 
+  mutate(testResult2= ifelse(testResult=="Positive",1,0))
 ```
 
