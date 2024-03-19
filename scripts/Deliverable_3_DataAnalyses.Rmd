@@ -18,15 +18,26 @@ library(here)
 
 ```{r}
 # Read in data
-Temp_raw <- read_csv(here("data", "raw", "TAAT_30min.csv"))
-Mos_raw <- read_csv(here("data", "raw", "mos_pathogenresults.csv"))
-Rodent_raw <- read_csv(here("data", "raw", "rpt_bloodtesting.csv"))
+temp_day <- read_csv(here("data", "processed", "temp_day.csv"))
+mosquito_clean <- read_csv(here("data", "processed", "mosquito_clean.csv"))
+rodent_clean <- read_csv(here("data", "processed", "rodent_clean.csv"))
 
 # Preview the data
 ```
 
 ```{r}
-Temp <- Temp_raw %>% 
-  drop_na()
+#Mutate rodent data so that name is consistent with other sheets (GRRRRRR)
+mosquito_day <- mosquito_clean %>% 
+  select(-startCollectDate) %>% 
+  mutate(collectDate = as_date(endCollectDate)) %>% 
+  select(-endCollectDate) 
+
+temp_day_join <-temp_day %>% 
+  rename("collectDate"= `floor_date(startDateTime, "day")`)
+
+temp_mos_raw <-
+  full_join(mosquito_day, temp_day_join) %>% 
+  full_join(., rodent_clean)
+
 ```
 
