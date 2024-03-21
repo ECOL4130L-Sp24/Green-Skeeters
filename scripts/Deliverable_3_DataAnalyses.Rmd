@@ -29,6 +29,24 @@ rodent_clean <- read_csv(here("data", "processed", "rodent_clean.csv"))
 ```
 
 ```{r}
+#Convert rodent and mosquito test data into binary values
+mosquito_binary <- mosquito_day %>% 
+  mutate(testResult_mos= ifelse(testResult=="Positive",1,0))
+
+rodent_binary <- rodent_clean %>% 
+  mutate(testResult_rodent= ifelse(testResult=="Positive",1,0))
+```
+
+```{r}
+#Saving positive/negative binary data to processed data folder
+mosquito_binary %>% 
+  write_csv(here("data", "processed", "mosquito_binary.csv"))
+
+rodent_binary %>% 
+  write_csv(here("data", "processed", "rodent_binary.csv"))
+```
+
+```{r}
 #Join data sheets
 mosquito_day <- mosquito_clean %>% 
   select(-startCollectDate) %>% 
@@ -44,15 +62,5 @@ temp_mos_raw <-
   select(-testResult)
 
 
-```
-
-
-```{r}
-#Convert rodent and mosquito test data into binary values
-mosquito_binary <- mosquito_day %>% 
-  mutate(testResult_mos= ifelse(testResult=="Positive",1,0))
-
-rodent_binary <- rodent_clean %>% 
-  mutate(testResult_rodent= ifelse(testResult=="Positive",1,0))
 ```
 
