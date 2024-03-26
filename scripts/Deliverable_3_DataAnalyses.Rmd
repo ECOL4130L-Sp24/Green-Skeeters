@@ -61,8 +61,17 @@ temp_mos_raw <-
   full_join(., rodent_binary) %>% 
   select(-testResult)
 
-temp_mos_raw %>% 
-  write_csv(here("data", "processed", "temp_mos_raw.csv"))
+temp_mos_raw #%>% 
+  #write_csv(here("data", "processed", "temp_mos_raw.csv"))
+
+temp_mos_season <- temp_mos_raw %>% 
+  subset %>% 
+  mutate(month = month(collectDate),
+         season = ifelse(month %in% c(06,07,08), "summer",
+                         ifelse(month %in% c(09,10,11), "fall",
+                                ifelse(month %in% c(12,01,02), "winter",
+                                        ifelse(month %in% c(03,04,05), "spring",
+                                                "NA")))))
 
 ```
 
@@ -84,11 +93,24 @@ summarize(count = n()) %>%
 ```
 
 ```{r}
+#Performing an ANOVA on test results with season and site id
+model1 <- aov(testResult_mos ~ siteID + season, data = temp_mos_season)
+
+summary(model1)
+
+TukeyHSD(model1)
+
+par(mfrow = c(1, 2))
+plot(model1, which = c(2, 3))
+```
+
+```{r}
 #Validate assumptions in ANOVA, view summary
 summary(site_mos_aov)
 TukeyHSD(site_mos_aov)
 
 ```
+<<<<<<< HEAD
 
 ```{r}
 ggplot(temp_mos_proportion,
@@ -100,3 +122,5 @@ ggplot(temp_mos_proportion,
                   col = siteID))
  #This graph is currently unfinished and needs a good bit of work 
 ```
+=======
+>>>>>>> a29646dd90b9e4725debdf9e3912dc1406426f8f
