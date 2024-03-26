@@ -76,16 +76,24 @@ temp_mos_season <- temp_mos_raw %>%
 ```
 
 ```{r}
-#ANOVA time 
-temp_mos_proportion <- temp_mos_raw %>%
-  group_by(siteID) %>% 
-  summarize(sum(testResult_mos == 1)/n())
+#ANOVA time
 
- site_mos_aov <- model2 <- aov(prop_positive ~ species, data = temp_mos_proportion)
+temp_mos_proportion <- temp_mos_raw %>%
+  group_by(siteID, testResult_mos) %>% 
+  drop_na(testResult_mos) %>% 
+summarize(count = n()) %>% 
+  pivot_wider(names_from = testResult_mos, values_from = count,
+              values_fill = 0) %>% 
+  rename( negative = `0`, positive = `1`) %>% 
+  mutate(prop_positive = `positive`/(`positive` + `negative`)) %>% 
+ 
+
+ site_mos_aov <- model2 <- aov(prop_positive ~ siteID, data = temp_mos_proportion)
 
 ```
 
 ```{r}
+<<<<<<< HEAD
 #Performing an ANOVA on test results with season and site id
 model1 <- aov(testResult_mos ~ siteID + season, data = temp_mos_season)
 
@@ -97,3 +105,10 @@ par(mfrow = c(1, 2))
 plot(model1, which = c(2, 3))
 ```
 
+=======
+#Validate assumptions in ANOVA, view summary
+summary(site_mos_aov)
+TukeyHSD(site_mos_aov)
+
+```
+>>>>>>> 297724543b7649e31bef8abec34e0b62c6d3a338
