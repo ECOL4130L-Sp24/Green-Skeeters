@@ -67,10 +67,16 @@ temp_mos_raw %>%
 ```
 
 ```{r}
-#ANOVA time 
+#ANOVA time
+
 temp_mos_proportion <- temp_mos_raw %>%
-  group_by(siteID) %>% 
-  summarize(sum(testResult_mos == 1)/n())
+  group_by(siteID, testResult_mos) %>% 
+  drop_na(testResult_mos) %>% 
+summarize(count = n()) %>% 
+  pivot_wider(names_from = testResult_mos, values_from = count) %>% 
+  rename( negative = `0`, positive = `1`) %>% 
+  mutate(prop_positive = `positive`/(`positive` + `negative`))
+ 
 
  site_mos_aov <- model2 <- aov(prop_positive ~ species, data = temp_mos_proportion)
 
