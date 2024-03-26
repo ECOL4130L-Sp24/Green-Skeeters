@@ -93,7 +93,6 @@ summarize(count = n()) %>%
 ```
 
 ```{r}
-<<<<<<< HEAD
 #Performing an ANOVA on test results with season and site id
 model1 <- aov(testResult_mos ~ siteID + season, data = temp_mos_season)
 
@@ -105,10 +104,9 @@ par(mfrow = c(1, 2))
 plot(model1, which = c(2, 3))
 ```
 
-=======
+```{r}
 #Validate assumptions in ANOVA, view summary
 summary(site_mos_aov)
 TukeyHSD(site_mos_aov)
 
 ```
->>>>>>> 297724543b7649e31bef8abec34e0b62c6d3a338
