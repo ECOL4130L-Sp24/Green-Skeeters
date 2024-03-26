@@ -76,7 +76,7 @@ summarize(count = n()) %>%
   pivot_wider(names_from = testResult_mos, values_from = count,
               values_fill = 0) %>% 
   rename( negative = `0`, positive = `1`) %>% 
-  mutate(prop_positive = `positive`/(`positive` + `negative`)) %>% 
+  mutate(prop_positive = `positive`/(`positive` + `negative`))
  
 
  site_mos_aov <- model2 <- aov(prop_positive ~ siteID, data = temp_mos_proportion)
@@ -88,4 +88,15 @@ summarize(count = n()) %>%
 summary(site_mos_aov)
 TukeyHSD(site_mos_aov)
 
+```
+
+```{r}
+ggplot(temp_mos_proportion,
+       aes(x = siteID, 
+           y = prop_positivel)) +
+  geom_jitter(data = temp_mos_proportion,
+              aes(x = siteID, 
+                  y = prop_positive,
+                  col = siteID))
+ #This graph is currently unfinished and needs a good bit of work 
 ```
