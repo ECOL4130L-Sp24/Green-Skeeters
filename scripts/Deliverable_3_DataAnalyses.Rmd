@@ -88,7 +88,7 @@ summarize(count = n()) %>%
   mutate(prop_positive = `positive`/(`positive` + `negative`))
  
 
- site_mos_aov <- model2 <- aov(prop_positive ~ siteID, data = temp_mos_proportion)
+ site_mos_aov <- aov(prop_positive ~ siteID, data = temp_mos_proportion)
 
 ```
 
@@ -110,7 +110,6 @@ summary(site_mos_aov)
 TukeyHSD(site_mos_aov)
 
 ```
-<<<<<<< HEAD
 
 ```{r}
 ggplot(temp_mos_proportion,
@@ -122,5 +121,5 @@ ggplot(temp_mos_proportion,
                   col = siteID))
  #This graph is currently unfinished and needs a good bit of work 
 ```
-=======
->>>>>>> a29646dd90b9e4725debdf9e3912dc1406426f8f
+
+
