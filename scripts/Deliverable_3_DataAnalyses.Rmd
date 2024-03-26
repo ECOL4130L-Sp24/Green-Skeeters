@@ -61,8 +61,8 @@ temp_mos_raw <-
   full_join(., rodent_binary) %>% 
   select(-testResult)
 
-temp_mos_raw %>% 
-  write_csv(here("data", "processed", "temp_mos_raw.csv"))
+temp_mos_raw #%>% 
+  #write_csv(here("data", "processed", "temp_mos_raw.csv"))
 
 temp_mos_season <- temp_mos_raw %>% 
   subset %>% 
