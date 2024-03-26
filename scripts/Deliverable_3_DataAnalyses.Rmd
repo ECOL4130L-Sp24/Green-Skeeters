@@ -64,6 +64,15 @@ temp_mos_raw <-
 temp_mos_raw %>% 
   write_csv(here("data", "processed", "temp_mos_raw.csv"))
 
+temp_mos_season <- temp_mos_raw %>% 
+  subset %>% 
+  mutate(month = month(collectDate),
+         season = ifelse(month %in% c(06,07,08), "summer",
+                         ifelse(month %in% c(09,10,11), "fall",
+                                ifelse(month %in% c(12,01,02), "winter",
+                                        ifelse(month %in% c(03,04,05), "spring",
+                                                "NA")))))
+
 ```
 
 ```{r}
@@ -74,5 +83,17 @@ temp_mos_proportion <- temp_mos_raw %>%
 
  site_mos_aov <- model2 <- aov(prop_positive ~ species, data = temp_mos_proportion)
 
+```
+
+```{r}
+#Performing an ANOVA on test results with season and site id
+model1 <- aov(testResult_mos ~ siteID + season, data = temp_mos_season)
+
+summary(model1)
+
+TukeyHSD(model1)
+
+par(mfrow = c(1, 2))
+plot(model1, which = c(2, 3))
 ```
 
