@@ -30,7 +30,7 @@ rodent_clean <- read_csv(here("data", "processed", "rodent_clean.csv"))
 
 ```{r}
 #Convert rodent and mosquito test data into binary values
-mosquito_binary <- mosquito_day %>% 
+mosquito_binary <- mosquito_clean %>% 
   mutate(testResult_mos= ifelse(testResult=="Positive",1,0))
 
 rodent_binary <- rodent_clean %>% 
