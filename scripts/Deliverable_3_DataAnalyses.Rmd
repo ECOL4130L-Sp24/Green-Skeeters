@@ -8,7 +8,7 @@ authors: Anderson,Cabe,Gabby
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 ```
 
-## ANOVA and graphs comparing temperature and mosquito pathogen positivity across sites
+## ANOVA and graphs comparing season and mosquito pathogen positivity across sites
 
 ```{r}
 # Loading appropriate packages
@@ -98,7 +98,7 @@ plot(additive_model, which = c(2, 3))
 ```
 
 ```{r}
-#Graph of proportion of positive results over seasons per siteid
+#Graph of proportion of positive results over seasons across sites
 temp_mos_season_prop <- temp_mos_season %>% 
   pivot_wider(names_from = testResult_mos,
               values_from = total,
@@ -124,7 +124,7 @@ ggplot(data = temp_mos_season_prop,
 # Hole, MA, having the highest proportion of positives.
 
 ```{r}
-#Graph of proportion of positive results of virus types per siteid  
+#Graph of proportion of positive results of virus types across sites 
 temp_mos_pathogen <- temp_mos_raw %>% 
   drop_na() %>% 
   group_by(siteID, testResult_mos, testPathogenName) %>% 
