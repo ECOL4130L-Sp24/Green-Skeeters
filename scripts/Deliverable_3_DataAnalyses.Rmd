@@ -52,7 +52,6 @@ temp_day_join <-temp_day %>%
 
 temp_mos_raw <-
   full_join(mosquito_binary, temp_day_join) %>% 
-  full_join(., rodent_binary) %>% 
   select(-testResult)
 
 temp_mos_raw #%>% 
@@ -68,6 +67,7 @@ temp_mos_season <- temp_mos_raw %>%
                                                 "NA")))))
 
 ```
+
 ```{r}
 #Performing an ANOVA on test results with season and site id
 model1 <- aov(testResult_mos ~ siteID * season, data = temp_mos_season)
@@ -81,12 +81,10 @@ plot(model1, which = c(2, 3))
 ```
 
 ```{r}
-<<<<<<< HEAD
 ggplot(temp_mos_season,
-=======
 ggplot(data = temp_mos_season, 
          aes(x = season, 
-             y = testResult_mos)) +
+             y = testResult_mos))) +
   #geom_jitter(aes(col = siteID),
   #            width = 0.2) +
   geom_boxplot(fill = NA, 
@@ -103,7 +101,6 @@ TukeyHSD(site_mos_aov)
 
 ```{r}
 ggplot(temp_mos_proportion,
->>>>>>> a751be69856cf414dcdd5eee7922be8a706c911d
        aes(x = siteID, 
            y = testResult_mos)) +
   geom_jitter(data = temp_mos_season,
@@ -113,8 +110,3 @@ ggplot(temp_mos_proportion,
 
  #This graph is currently unfinished and needs a good bit of work 
 ```
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 89d30eddff6b3687a3112387e1501bcb306eb710
