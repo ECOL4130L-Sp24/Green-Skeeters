@@ -87,7 +87,30 @@ plot(model1, which = c(2, 3))
 ```
 
 ```{r}
+<<<<<<< HEAD
 ggplot(temp_mos_season,
+=======
+ggplot(data = temp_mos_season, 
+         aes(x = season, 
+             y = testResult_mos)) +
+  #geom_jitter(aes(col = siteID),
+  #            width = 0.2) +
+  geom_boxplot(fill = NA, 
+               outlier.shape = NA) +
+  theme_bw()
+```
+
+```{r}
+#Validate assumptions in ANOVA, view summary
+summary(site_mos_aov)
+TukeyHSD(site_mos_aov)
+
+```
+<<<<<<< HEAD
+
+```{r}
+ggplot(temp_mos_proportion,
+>>>>>>> a751be69856cf414dcdd5eee7922be8a706c911d
        aes(x = siteID, 
            y = testResult_mos)) +
   geom_jitter(data = temp_mos_season,
