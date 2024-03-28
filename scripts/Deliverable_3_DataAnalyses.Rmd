@@ -31,7 +31,9 @@ rodent_clean <- read_csv(here("data", "processed", "rodent_clean.csv"))
 ```{r}
 #Convert rodent and mosquito test data into binary values
 mosquito_binary <- mosquito_clean %>% 
-  mutate(testResult_mos= ifelse(testResult=="Positive",1,0))
+  mutate(testResult_mos= ifelse(testResult=="Positive",1,0),
+         collectDate = floor_date(endCollectDate, "day")) %>% 
+  select(-startCollectDate, -endCollectDate)
 
 rodent_binary <- rodent_clean %>% 
   mutate(testResult_rodent= ifelse(testResult=="Positive",1,0))
@@ -70,7 +72,11 @@ temp_mos_season <- temp_mos_raw %>%
                          ifelse(month %in% c(09,10,11), "fall",
                                 ifelse(month %in% c(12,01,02), "winter",
                                         ifelse(month %in% c(03,04,05), "spring",
-                                                "NA")))))
+                                                "NA"))))) %>% 
+  group_by(siteID, season, testResult_mos) %>% 
+  summarize(total = n())
+
+temp_mos_season
 
 ```
 
