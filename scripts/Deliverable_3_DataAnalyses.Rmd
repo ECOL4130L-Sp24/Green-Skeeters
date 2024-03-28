@@ -74,27 +74,9 @@ temp_mos_season <- temp_mos_raw %>%
                                                 "NA")))))
 
 ```
-
-```{r}
-#ANOVA time
-
-temp_mos_proportion <- temp_mos_raw %>%
-  group_by(siteID, testResult_mos) %>% 
-  drop_na(testResult_mos) %>% 
-summarize(count = n()) %>% 
-  pivot_wider(names_from = testResult_mos, values_from = count,
-              values_fill = 0) %>% 
-  rename( negative = `0`, positive = `1`) %>% 
-  mutate(prop_positive = `positive`/(`positive` + `negative`))
- 
-
- site_mos_aov <- aov(prop_positive ~ siteID, data = temp_mos_proportion)
-
-```
-
 ```{r}
 #Performing an ANOVA on test results with season and site id
-model1 <- aov(testResult_mos ~ siteID + season, data = temp_mos_season)
+model1 <- aov(testResult_mos ~ siteID * season, data = temp_mos_season)
 
 summary(model1)
 
@@ -105,20 +87,14 @@ plot(model1, which = c(2, 3))
 ```
 
 ```{r}
-#Validate assumptions in ANOVA, view summary
-summary(site_mos_aov)
-TukeyHSD(site_mos_aov)
-
-```
-
-```{r}
-ggplot(temp_mos_proportion,
+ggplot(temp_mos_season,
        aes(x = siteID, 
-           y = prop_positivel)) +
-  geom_jitter(data = temp_mos_proportion,
+           y = testResult_mos)) +
+  geom_jitter(data = temp_mos_season,
               aes(x = siteID, 
-                  y = prop_positive,
-                  col = siteID))
+                  y = testResult_mos,
+                  col = season))
+
  #This graph is currently unfinished and needs a good bit of work 
 ```
 
