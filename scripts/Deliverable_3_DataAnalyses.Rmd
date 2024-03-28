@@ -20,12 +20,9 @@ library(viridis)
 
 ```{r}
 # Read in data
-
 temp_day <- read_csv(here("data", "processed", "temp_day.csv"))
 mosquito_clean <- read_csv(here("data", "processed", "mosquito_clean.csv"))
 rodent_clean <- read_csv(here("data", "processed", "rodent_clean.csv"))
-
-# Preview the data
 ```
 
 ```{r}
@@ -66,6 +63,7 @@ temp_mos_raw #%>%
   #write_csv(here("data", "processed", "temp_mos_raw.csv"))
 
 temp_mos_season <- temp_mos_raw %>% 
+  drop_na() %>% 
   subset %>% 
   mutate(month = month(collectDate),
          season = ifelse(month %in% c(06,07,08), "summer",
@@ -99,24 +97,19 @@ TukeyHSD(additive_model)
 par(mfrow = c(1, 2))
 plot(additive_model, which = c(2, 3))
 
-#Testing whether additive or interactive model is more appropriate
-
-anova(model1, additive_model)
-
-#Prefer complex model
+#We performed a two-way ANOVA to test whether the proportion of positive 
+#mosquito test results was associated with the site ID, the season of the year, 
+#or the interaction of the two. None of the variables listed above had a 
+#significant relationship (all p values > 0.85).
 ```
 
 ```{r}
 ggplot(data = temp_mos_season, 
          aes(x = season, 
              y = testResult_mos)) +
-    geom_boxplot(aes(col = siteID),
+    geom_jitter(aes(col = siteID),
           width = 0.2) +
-<<<<<<< HEAD
-  scale_y_continuous(limits =  c(0, 0.5)) +
-=======
-  facet_wrap(~season) +
->>>>>>> e29a052d47cf734c313b719fe11655ea4ec02971
+  scale_y_continuous(limits =  c(0, 0.1)) +
   theme_bw()
   
 ```
