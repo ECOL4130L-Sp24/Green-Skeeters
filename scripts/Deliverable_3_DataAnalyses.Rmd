@@ -101,15 +101,14 @@ anova(model1, additive_model)
 ```
 
 ```{r}
-ggplot(temp_mos_season,
 ggplot(data = temp_mos_season, 
          aes(x = season, 
-             y = testResult_mos))) +
-  #geom_jitter(aes(col = siteID),
-  #            width = 0.2) +
-  geom_boxplot(fill = NA, 
-               outlier.shape = NA) +
+             y = testResult_mos)) +
+    geom_boxplot(aes(col = siteID),
+          width = 0.2) +
+  facet_wrap(~season) +
   theme_bw()
+  
 ```
 
 
