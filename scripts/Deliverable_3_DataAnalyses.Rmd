@@ -23,6 +23,7 @@ library(viridis)
 
 temp_day <- read_csv(here("data", "processed", "temp_day.csv"))
 mosquito_clean <- read_csv(here("data", "processed", "mosquito_clean.csv"))
+rodent_clean <- read_csv(here("data", "processed", "rodent_clean.csv"))
 
 # Preview the data
 ```
@@ -32,12 +33,17 @@ mosquito_clean <- read_csv(here("data", "processed", "mosquito_clean.csv"))
 mosquito_binary <- mosquito_clean %>% 
   mutate(testResult_mos= ifelse(testResult=="Positive",1,0))
 
+rodent_binary <- rodent_clean %>% 
+  mutate(testResult_rodent= ifelse(testResult=="Positive",1,0))
 ```
 
 ```{r}
 #Saving positive/negative binary data to processed data folder
 mosquito_binary %>% 
   write_csv(here("data", "processed", "mosquito_binary.csv"))
+
+rodent_binary %>% 
+  write_csv(here("data", "processed", "rodent_binary.csv"))
 ```
 
 ```{r}
@@ -81,40 +87,11 @@ plot(model1, which = c(2, 3))
 ```
 
 ```{r}
-<<<<<<< HEAD
-ggplot(temp_mos_season,
-=======
 ggplot(data = temp_mos_season, 
          aes(x = season, 
              y = testResult_mos)) +
-  #geom_jitter(aes(col = siteID),
-  #            width = 0.2) +
-  geom_boxplot(fill = NA, 
-               outlier.shape = NA) +
+  geom_jitter(aes(col = siteID),
+          width = 0.2) +
+  scale_y_continuous(limits = c(0, 0.5)) +
   theme_bw()
 ```
-
-```{r}
-#Validate assumptions in ANOVA, view summary
-summary(site_mos_aov)
-TukeyHSD(site_mos_aov)
-
-```
-
-```{r}
-ggplot(temp_mos_proportion,
->>>>>>> a751be69856cf414dcdd5eee7922be8a706c911d
-       aes(x = siteID, 
-           y = testResult_mos)) +
-  geom_jitter(data = temp_mos_season,
-              aes(x = siteID, 
-                  y = testResult_mos,
-                  col = season))
-
- #This graph is currently unfinished and needs a good bit of work 
-```
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 89d30eddff6b3687a3112387e1501bcb306eb710
