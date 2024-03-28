@@ -79,11 +79,24 @@ temp_mos_season <- temp_mos_raw %>%
 model1 <- aov(testResult_mos ~ siteID * season, data = temp_mos_season)
 
 summary(model1)
-
 TukeyHSD(model1)
 
 par(mfrow = c(1, 2))
 plot(model1, which = c(2, 3))
+
+#Additive model
+additive_model <- aov(testResult_mos ~ siteID + season, data = temp_mos_season)
+
+summary(additive_model)
+TukeyHSD(additive_model)
+
+par(mfrow = c(1, 2))
+plot(additive_model, which = c(2, 3))
+
+#Testing whether additive or interactive model is more appropriate
+
+model_comparison <- aov()
+
 ```
 
 ```{r}
