@@ -104,15 +104,13 @@ plot(additive_model, which = c(2, 3))
 ```
 
 ```{r}
-
+#Graphing data
 temp_mos_season_prop <- temp_mos_season %>% 
   pivot_wider(names_from = testResult_mos,
               values_from = total,
               values_fill = 0) %>% 
   mutate(prop_pos = `1` / sum(`0` + `1`)) %>% 
   mutate(season = factor(season,levels = c("fall", "winter", "spring", "summer")))
-
-
 
 ggplot(data = temp_mos_season_prop, 
          aes(x = season, 
@@ -126,5 +124,34 @@ ggplot(data = temp_mos_season_prop,
   
 ```
 
+# Proportion of viral disease presence in mosquitoes separated by season of the
+# year and NEON site from which data was gathered (DSNY = Disney World, Orlando, Florida; HARV = Cambridge, MA; MOAB = Moab, Utah; WOOD = Woods Hole, 
+# Massachussetts. The only positive test results occurred in summer, with Woods
+# Hole, MA, having the highest proportion of positives.
 
+```{r}
+#Graph 2 
+temp_mos_pathogen <- temp_mos_raw %>% 
+  drop_na() %>% 
+  group_by(siteID, testResult_mos, testPathogenName) %>% 
+  summarize(total = n()) %>% 
+  pivot_wider(names_from = testResult_mos,
+              values_from = total,
+              values_fill = 0) %>% 
+  mutate(prop_pos = `1` / sum(`0` + `1`))
+
+ggplot(data = temp_mos_pathogen, 
+         aes(x = siteID, 
+             y = prop_pos,
+             col = testPathogenName)) +
+    geom_jitter(cex = 3,
+                height = 0,
+                width = 0.1) +
+  labs( x = "Site", y = "Proportion of positive test results", color = "Virus") +
+  theme_bw()
+
+```
+# Proportion of positive test results separated by site ID and pathogen. 
+# The only pathogens detected were Flavivirus and West Nile, and the prevalence
+# of both viruses was higher in Woods Hole than Disney.
 
