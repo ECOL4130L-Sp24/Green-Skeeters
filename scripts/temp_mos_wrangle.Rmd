@@ -1,5 +1,5 @@
 ---
-title: "Uniting Mosquito, Rodent, and Temperature Datasets"
+title: "Uniting Mosquito and Temperature Datasets"
 author: "Anderson Smith"
 date: "2024-02-22"
 output: html_document
