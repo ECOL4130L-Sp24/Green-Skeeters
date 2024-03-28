@@ -1,10 +1,10 @@
 ```{r}
-## "Skeeter Wrangling" loading appropiate packages
+## "mosquito-grab" loading appropiate packages
 library(tidyverse)
 library(neonUtilities)
 library(here)
 ```
-
+##Assign names to codes, sites, and date ranges
 ```{r}
 # Mosquito Pathogen Status
 Mosquito <- "DP1.10041.001"
@@ -48,16 +48,6 @@ mos_pathogenpooling %>%
 mos_pathogenresults%>% 
   write_csv(here("data", "raw", "mos_pathogenresults.csv"))
 
-```
-      
-```{r}
-# loading appropriate packages to graph
-pacman::p_load(tidyverse, here, cowplot, viridis)
-```
-
-```{r}
-# viewing data from pathogen results
-glimpse(mosquito_clean)
 ```
 
 

@@ -44,7 +44,7 @@ end_date <- "2022-10"
 
 ```{r}
 
-# We'll pull the ground beetle data first
+# Dowloading temperature data
 list2env((loadByProduct(dpID = temperature_skeeters, 
                         site = my_sites, 
                         startdate = start_date,
