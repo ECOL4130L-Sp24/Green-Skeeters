@@ -60,8 +60,5 @@ pacman::p_load(tidyverse, here, cowplot, viridis)
 glimpse(mosquito_clean)
 ```
 
-```{r}
-
-```
 
 

@@ -8,7 +8,7 @@ authors: Anderson,Cabe,Gabby
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 ```
 
-## ANOVA comparing temperature and mosquito pathogen positivity across sites
+## ANOVA and graphs comparing temperature and mosquito pathogen positivity across sites
 
 ```{r}
 # Loading appropriate packages
