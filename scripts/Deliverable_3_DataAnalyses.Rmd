@@ -95,8 +95,9 @@ plot(additive_model, which = c(2, 3))
 
 #Testing whether additive or interactive model is more appropriate
 
-model_comparison <- aov()
+anova(model1, additive_model)
 
+#Prefer complex model
 ```
 
 ```{r}
@@ -111,32 +112,5 @@ ggplot(data = temp_mos_season,
   theme_bw()
 ```
 
-```{r}
-#Validate assumptions in ANOVA, view summary
-summary(site_mos_aov)
-TukeyHSD(site_mos_aov)
 
-```
-
-```{r}
-ggplot(temp_mos_proportion,
-       aes(x = siteID, 
-           y = testResult_mos)) +
-  geom_jitter(data = temp_mos_season,
-              aes(x = siteID, 
-                  y = testResult_mos,
-                  col = season))
-
- #This graph is currently unfinished and needs a good bit of work 
-```
-
-```{r}
-ggplot(data = temp_mos_season, 
-         aes(x = season, 
-             y = testResult_mos)) +
-  geom_jitter(aes(col = siteID),
-          width = 0.2) +
-  scale_y_continuous(limits = c(0, 0.5)) +
-  theme_bw()
-```
 
