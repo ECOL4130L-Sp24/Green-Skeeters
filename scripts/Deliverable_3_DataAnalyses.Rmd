@@ -104,13 +104,25 @@ plot(additive_model, which = c(2, 3))
 ```
 
 ```{r}
-ggplot(data = temp_mos_season, 
-         aes(x = season, 
-             y = testResult_mos)) +
-    geom_jitter(aes(col = siteID),
-          width = 0.2) +
 
-  scale_y_continuous(limits =  c(0, 0.1)) +
+temp_mos_season_prop <- temp_mos_season %>% 
+  pivot_wider(names_from = testResult_mos,
+              values_from = total,
+              values_fill = 0) %>% 
+  mutate(prop_pos = `1` / sum(`0` + `1`))
+
+temp_mos_season_prop
+
+ggplot(data = temp_mos_season_prop, 
+         aes(x = season, 
+             y = prop_pos,
+             col = siteID)) +
+    geom_jitter(cex = 3,
+                height = 0,
+                width = 0.1) +
+  #scale_y_continuous(limits =  c(0, 0.01)) +
+    geom_boxplot() +
+  facet_wrap(~season, scales = "free") +
   theme_bw()
   
 ```
