@@ -112,11 +112,8 @@ ggplot(data = temp_mos_season,
              y = testResult_mos)) +
     geom_boxplot(aes(col = siteID),
           width = 0.2) +
-<<<<<<< HEAD
   scale_y_continuous(limits =  c(0, 0.5)) +
-=======
   facet_wrap(~season) +
->>>>>>> e29a052d47cf734c313b719fe11655ea4ec02971
   theme_bw()
   
 ```
