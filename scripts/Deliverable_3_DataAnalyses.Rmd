@@ -109,6 +109,7 @@ ggplot(data = temp_mos_season,
              y = testResult_mos)) +
     geom_jitter(aes(col = siteID),
           width = 0.2) +
+
   scale_y_continuous(limits =  c(0, 0.1)) +
   theme_bw()
   
