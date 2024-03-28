@@ -24,8 +24,6 @@ temp_raw <- read_csv(here("Data", "Raw", "TAAT_30min.csv"))
 
 mosquito_path_raw <- read_csv(here("Data", "Raw", "mos_pathogenresults.csv"))
 
-rodent_raw <- read_csv(here("Data", "Raw", "rpt_bloodtesting.csv"))
-
 ```
 
 ##Cleaning each tibble:
@@ -42,11 +40,6 @@ mosquito_clean <- mosquito_path_raw %>%
   select(siteID, testResult, testPathogenName, taxonID, startCollectDate,
          endCollectDate) %>% 
   drop_na() %>% 
-  mutate(testResult = as_factor(testResult))
-
-#Clean rodents
-rodent_clean <- rodent_raw %>% 
-  select(siteID, collectDate, testResult) %>% 
   mutate(testResult = as_factor(testResult))
   
 ```
@@ -81,9 +74,6 @@ temp_day %>%
 
 temp_month %>% 
   write_csv(here("data", "processed", "temp_month.csv"))
-
-rodent_clean %>% 
-  write_csv(here("data", "processed", "rodent_clean.csv"))
 
 mosquito_clean %>% 
   write_csv(here("data", "processed", "mosquito_clean.csv"))
