@@ -23,7 +23,6 @@ library(viridis)
 
 temp_day <- read_csv(here("data", "processed", "temp_day.csv"))
 mosquito_clean <- read_csv(here("data", "processed", "mosquito_clean.csv"))
-rodent_clean <- read_csv(here("data", "processed", "rodent_clean.csv"))
 
 # Preview the data
 ```
@@ -33,17 +32,12 @@ rodent_clean <- read_csv(here("data", "processed", "rodent_clean.csv"))
 mosquito_binary <- mosquito_clean %>% 
   mutate(testResult_mos= ifelse(testResult=="Positive",1,0))
 
-rodent_binary <- rodent_clean %>% 
-  mutate(testResult_rodent= ifelse(testResult=="Positive",1,0))
 ```
 
 ```{r}
 #Saving positive/negative binary data to processed data folder
 mosquito_binary %>% 
   write_csv(here("data", "processed", "mosquito_binary.csv"))
-
-rodent_binary %>% 
-  write_csv(here("data", "processed", "rodent_binary.csv"))
 ```
 
 ```{r}
@@ -106,7 +100,6 @@ summary(site_mos_aov)
 TukeyHSD(site_mos_aov)
 
 ```
-<<<<<<< HEAD
 
 ```{r}
 ggplot(temp_mos_proportion,
@@ -120,5 +113,8 @@ ggplot(temp_mos_proportion,
 
  #This graph is currently unfinished and needs a good bit of work 
 ```
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 89d30eddff6b3687a3112387e1501bcb306eb710
