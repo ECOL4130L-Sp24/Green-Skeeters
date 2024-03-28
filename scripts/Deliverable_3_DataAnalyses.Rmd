@@ -2,6 +2,7 @@
 title: "Deliverable 3 Data Analyses"
 output: uhhh
 date: "2024-03-14"
+authors: Anderson,Cabe,Gabby
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
@@ -22,31 +23,24 @@ library(viridis)
 # Read in data
 temp_day <- read_csv(here("data", "processed", "temp_day.csv"))
 mosquito_clean <- read_csv(here("data", "processed", "mosquito_clean.csv"))
-rodent_clean <- read_csv(here("data", "processed", "rodent_clean.csv"))
 ```
 
 ```{r}
-#Convert rodent and mosquito test data into binary values
+#Convert mosquito test data into binary values
 mosquito_binary <- mosquito_clean %>% 
   mutate(testResult_mos= ifelse(testResult=="Positive",1,0),
          collectDate = floor_date(endCollectDate, "day")) %>% 
   select(-startCollectDate, -endCollectDate)
-
-rodent_binary <- rodent_clean %>% 
-  mutate(testResult_rodent= ifelse(testResult=="Positive",1,0))
 ```
 
 ```{r}
 #Saving positive/negative binary data to processed data folder
 mosquito_binary %>% 
   write_csv(here("data", "processed", "mosquito_binary.csv"))
-
-rodent_binary %>% 
-  write_csv(here("data", "processed", "rodent_binary.csv"))
 ```
 
 ```{r}
-#Join data sheets
+#Joining data sheets, making a new season column and dropping unneeded variables
 mosquito_day <- mosquito_clean %>% 
   select(-startCollectDate) %>% 
   mutate(collectDate = as_date(endCollectDate)) %>% 
@@ -104,7 +98,7 @@ plot(additive_model, which = c(2, 3))
 ```
 
 ```{r}
-#Graphing data
+#Graph of proportion of positive results over seasons per siteid
 temp_mos_season_prop <- temp_mos_season %>% 
   pivot_wider(names_from = testResult_mos,
               values_from = total,
@@ -130,7 +124,7 @@ ggplot(data = temp_mos_season_prop,
 # Hole, MA, having the highest proportion of positives.
 
 ```{r}
-#Graph 2 
+#Graph of proportion of positive results of virus types per siteid  
 temp_mos_pathogen <- temp_mos_raw %>% 
   drop_na() %>% 
   group_by(siteID, testResult_mos, testPathogenName) %>% 
