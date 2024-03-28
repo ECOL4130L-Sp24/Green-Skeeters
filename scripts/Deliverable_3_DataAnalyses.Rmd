@@ -110,6 +110,7 @@ ggplot(data = temp_mos_season,
              col = siteID)) +
     geom_boxplot() +
   scale_y_continuous(limits =  c(0, 0.01)) +
+  facet_wrap(~season, scales = "free") +
   theme_bw()
   
 ```
