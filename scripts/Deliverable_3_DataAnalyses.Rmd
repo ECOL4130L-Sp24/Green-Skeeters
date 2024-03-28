@@ -109,9 +109,10 @@ temp_mos_season_prop <- temp_mos_season %>%
   pivot_wider(names_from = testResult_mos,
               values_from = total,
               values_fill = 0) %>% 
-  mutate(prop_pos = `1` / sum(`0` + `1`))
+  mutate(prop_pos = `1` / sum(`0` + `1`)) %>% 
+  mutate(season = factor(season,levels = c("fall", "winter", "spring", "summer")))
 
-temp_mos_season_prop
+
 
 ggplot(data = temp_mos_season_prop, 
          aes(x = season, 
@@ -120,9 +121,7 @@ ggplot(data = temp_mos_season_prop,
     geom_jitter(cex = 3,
                 height = 0,
                 width = 0.1) +
-  #scale_y_continuous(limits =  c(0, 0.01)) +
-    geom_boxplot() +
-  facet_wrap(~season, scales = "free") +
+  labs( x = "Season", y = "Proportion of positive test results") +
   theme_bw()
   
 ```
