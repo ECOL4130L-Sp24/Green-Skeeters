@@ -106,10 +106,9 @@ plot(additive_model, which = c(2, 3))
 ```{r}
 ggplot(data = temp_mos_season, 
          aes(x = season, 
-             y = testResult_mos, 
-             col = siteID)) +
+             y = total, 
+             col = testResult_mos)) +
     geom_boxplot() +
-  scale_y_continuous(limits =  c(0, 0.01)) +
   facet_wrap(~season, scales = "free") +
   theme_bw()
   
