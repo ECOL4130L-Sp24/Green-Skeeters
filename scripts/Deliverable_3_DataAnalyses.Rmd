@@ -87,7 +87,6 @@ plot(model1, which = c(2, 3))
 ```
 
 ```{r}
-<<<<<<< HEAD
 ggplot(temp_mos_season,
 ggplot(data = temp_mos_season, 
          aes(x = season, 
@@ -117,7 +116,8 @@ ggplot(temp_mos_proportion,
 
  #This graph is currently unfinished and needs a good bit of work 
 ```
-=======
+
+```{r}
 ggplot(data = temp_mos_season, 
          aes(x = season, 
              y = testResult_mos)) +
@@ -126,4 +126,4 @@ ggplot(data = temp_mos_season,
   scale_y_continuous(limits = c(0, 0.5)) +
   theme_bw()
 ```
->>>>>>> 3e299a950895123762c920f84f9aa306af4508ec
+
