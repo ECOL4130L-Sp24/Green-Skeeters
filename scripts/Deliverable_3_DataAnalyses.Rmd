@@ -98,7 +98,7 @@ par(mfrow = c(1, 2))
 plot(additive_model, which = c(2, 3))
 
 #We performed a two-way ANOVA to test whether the proportion of positive 
-#mosquito test results was associated with the site ID, the season of the year, 
+#mosquito test results were not associated with the site ID, the season of the year, 
 #or the interaction of the two. None of the variables listed above had a 
 #significant relationship (all p values > 0.85).
 ```
