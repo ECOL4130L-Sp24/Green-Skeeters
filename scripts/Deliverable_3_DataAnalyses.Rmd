@@ -1,6 +1,6 @@
 ---
 title: "Deliverable 3 Data Analyses"
-output: uhhh
+output: html_document
 date: "2024-03-14"
 authors: Anderson,Cabe,Gabby
 ---
@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 
 ## ANOVA and graphs comparing season and mosquito pathogen positivity across sites
 
-```{r}
+```{r, message = FALSE}
 # Loading appropriate packages
 
 library(tidyverse)
