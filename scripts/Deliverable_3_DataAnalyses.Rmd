@@ -34,12 +34,6 @@ mosquito_binary <- mosquito_clean %>%
 ```
 
 ```{r}
-#Saving positive/negative binary data to processed data folder
-mosquito_binary %>% 
-  write_csv(here("data", "processed", "mosquito_binary.csv"))
-```
-
-```{r}
 #Joining data sheets, making a new season column and dropping unneeded variables
 mosquito_day <- mosquito_clean %>% 
   select(-startCollectDate) %>% 
