@@ -45,12 +45,10 @@ temp_day_join <- temp_day %>%
   mutate(collectDate = as_date(collectDate))
 
 temp_mos_raw <-
-  left_join(mosquito_binary, temp_day_join) %>% 
+  inner_join(mosquito_binary, temp_day_join) %>% 
   select(-testResult)
 
 temp_mos_season <- temp_mos_raw %>% 
-  drop_na() %>% 
-  subset %>% 
   mutate(month = month(collectDate),
          season = ifelse(month %in% c(06,07,08), "summer",
                          ifelse(month %in% c(09,10,11), "fall",
@@ -58,9 +56,10 @@ temp_mos_season <- temp_mos_raw %>%
                                         ifelse(month %in% c(03,04,05), "spring",
                                                 "NA"))))) %>% 
   group_by(siteID, season, testResult_mos) %>% 
-  summarize(total = n())
+  summarize(total = n()) %>% 
+  arrange(-testResult_mos, total)
 
-head(temp_mos_season)
+temp_mos_season
 
 ```
 
