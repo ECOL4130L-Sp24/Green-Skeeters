@@ -40,15 +40,13 @@ mosquito_day <- mosquito_clean %>%
   mutate(collectDate = as_date(endCollectDate)) %>% 
   select(-endCollectDate) 
 
-temp_day_join <-temp_day %>% 
-  rename("collectDate"= `floor_date(startDateTime, "day")`)
+temp_day_join <- temp_day %>% 
+  rename("collectDate"= `floor_date(startDateTime, "day")`) %>% 
+  mutate(collectDate = as_date(collectDate))
 
 temp_mos_raw <-
-  full_join(mosquito_binary, temp_day_join) %>% 
+  left_join(mosquito_binary, temp_day_join) %>% 
   select(-testResult)
-
-temp_mos_raw #%>% 
-  #write_csv(here("data", "processed", "temp_mos_raw.csv"))
 
 temp_mos_season <- temp_mos_raw %>% 
   drop_na() %>% 
@@ -62,7 +60,7 @@ temp_mos_season <- temp_mos_raw %>%
   group_by(siteID, season, testResult_mos) %>% 
   summarize(total = n())
 
-temp_mos_season
+head(temp_mos_season)
 
 ```
 
