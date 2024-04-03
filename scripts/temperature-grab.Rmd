@@ -1,5 +1,5 @@
 ---
-title: "temperature_grab"
+title: "Consolidated data grab from NEON portal"
 author: "Anderson Smith"
 date: "2024-02-20"
 output: html_document
@@ -26,34 +26,38 @@ library(here)
 ```{r}
 
 # Temperature data
-temperature_skeeters <- "DP1.00003.001"
+temperature <- "DP1.00003.001"
 
-# Two selected focal sites
-my_sites <- c("DSNY", "MOAB","HARV","WOOD")
+# Mosquito Pathogen Status
+mosquito <- "DP1.10041.001"
+
+# Focal sites
+my_sites <- c("DSNY", "MOAB","WOOD")
 
 # Start date (as YYYY-MM)
-start_date <- "2019-01"
+start_date <- NA #"2017-08"
 
 # End date (as YYYY-MM)
-end_date <- "2022-10"
+end_date <- NA #"2022-06"
 
 ```
 
-#Pull data from NEON
+# Temperature: 
+
+# Pull temperature data from NEON
 
 
 ```{r}
 
 # Dowloading temperature data
-list2env((loadByProduct(dpID = temperature_skeeters, 
+list2env((loadByProduct(dpID = temperature, 
                         site = my_sites, 
                         startdate = start_date,
                         enddate = end_date)),
-         .GlobalEnv,
-         echo == FALSE)
+         .GlobalEnv)
 .
 ```
-#Write metadata and raw data as a CSV
+# Write metadata and raw data as a CSV
 ```{r save metadata csv}
 
 # Variable names and units: temperature
@@ -63,4 +67,36 @@ variables_00003 %>%
 # Raw data: triple-aspirated air temp, 30min intervals
 TAAT_30min %>% 
   write_csv(here("Data", "Raw", "TAAT_30min.csv"))
+```
+
+# Mosquito pathogen status: 
+
+## Pull mosquito data from NEON
+```{r} 
+
+list2env((loadByProduct(dpID = Mosquito, 
+                        site = my_sites, 
+                        include.provisional = TRUE)),
+                        #startdate = start_date,
+                        #enddate = end_date)),
+         .GlobalEnv)
+```
+
+## Write metadata and raw data files as a CSV
+```{r}
+# putting variable data in raw folder
+variables_10041 %>% 
+  write_csv(here("data", "raw", "variables_10041.csv"))
+```
+
+```{r}
+# putting mosquito data in raw folder
+mos_pathogenpooling %>% 
+  write_csv(here("data", "raw", "mos_pathogenpooling.csv"))
+```
+
+```{r}
+# putting mosquito data in raw folder
+mos_pathogenresults%>% 
+  write_csv(here("data", "raw", "mos_pathogenresults.csv"))
 ```
