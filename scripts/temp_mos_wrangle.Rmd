@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Grabbing temperature, rodent, and mosquito data to test climatic (latitudinal)
 variation in viral pathogen load
 
-```{r, echo == FALSE}
+```{r, echo = FALSE}
 #Load packages and raw data
 library(tidyverse)
 library(here)
@@ -39,7 +39,6 @@ temp_clean <- temp_raw %>%
 mosquito_clean <- mosquito_path_raw %>% 
   select(siteID, testResult, testPathogenName, taxonID, startCollectDate,
          endCollectDate) %>% 
-  drop_na() %>% 
   mutate(testResult = as_factor(testResult))
   
 ```
@@ -47,14 +46,17 @@ mosquito_clean <- mosquito_path_raw %>%
 ```{r}
 #Group temperature by day 
 temp_day <- temp_clean %>% 
-  group_by(siteID, floor_date(startDateTime, 'day')) %>% 
+  mutate(collectDate = as_date(floor_date(startDateTime, 'day'))) %>% 
+  group_by(siteID, collectDate) %>% 
   summarize(avg_temp = mean(tempTripleMean), 
             min_temp = mean(tempTripleMinimum),
             max_temp = mean(tempTripleMaximum), 
             var_temp = mean(tempTripleVariance))
 
 temp_month <- temp_clean %>% 
-  group_by(siteID, floor_date(startDateTime, 'month')) %>% 
+  mutate(collectDate = as_date(floor_date(startDateTime, 'day')),
+         month = month(collectDate)) %>% 
+  group_by(siteID, month) %>% 
   summarize(avg_temp = mean(tempTripleMean), 
             min_temp = mean(tempTripleMinimum),
             max_temp = mean(tempTripleMaximum), 
@@ -103,11 +105,8 @@ ifelse(!dir.exists(here ("outputs")), dir.create(here("outputs")), "Folder exist
 
 ```{r}
 #Scatter plot for temperature over months per siteID
-temp_month2 <- temp_month %>% 
-  rename(date = "floor_date(startDateTime, \"month\")")
-
-ggplot(data = temp_month2, 
-       mapping = aes(x = date,
+ggplot(data = temp_month, 
+       mapping = aes(x = month,
                      y = avg_temp,
                      col = siteID)) + 
   geom_point() + 
