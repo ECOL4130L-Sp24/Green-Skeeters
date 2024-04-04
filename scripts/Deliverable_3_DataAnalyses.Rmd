@@ -41,7 +41,6 @@ mosquito_day <- mosquito_clean %>%
   select(-endCollectDate) 
 
 temp_day_join <- temp_day %>% 
-  rename("collectDate"= `floor_date(startDateTime, "day")`) %>% 
   mutate(collectDate = as_date(collectDate))
 
 temp_mos_raw <-
@@ -62,7 +61,7 @@ temp_mos_season <- temp_mos_raw %>%
 temp_mos_season
 
 ```
-
+**KF comment: the model below is not currently using an appropriate response variable since "testResult_mos" represents the positive/negative groups, not values**
 ```{r}
 #Performing an ANOVA on test results with season and site id
 model1 <- aov(testResult_mos ~ siteID * season, data = temp_mos_season)
@@ -109,10 +108,9 @@ ggplot(data = temp_mos_season_prop,
   
 ```
 
-# Proportion of viral disease presence in mosquitoes separated by season of the
-# year and NEON site from which data was gathered (DSNY = Disney World, Orlando, Florida; HARV = Cambridge, MA; MOAB = Moab, Utah; WOOD = Woods Hole, 
-# Massachussetts. The only positive test results occurred in summer, with Woods
-# Hole, MA, having the highest proportion of positives.
+**KF note: remember that in .Rmd you can write in plain-text between code chunks! Using a single # will set a line as a "top level" header in your knit document. And the .Rmd visible width auto-adjusts and auto-wraps base on your computer screen so you also don't have to worry about enforcing specific line breaks! :) **
+
+Proportion of viral disease presence in mosquitoes separated by season of the year and NEON site from which data was gathered (DSNY = Disney World, Orlando, Florida; HARV = Cambridge, MA; MOAB = Moab, Utah; WOOD = Woods Hole, Massachussetts. The only positive test results occurred in summer, with Woods Hole, MA, having the highest proportion of positives.
 
 ```{r}
 #Graph of proportion of positive results of virus types across sites 
@@ -136,7 +134,4 @@ ggplot(data = temp_mos_pathogen,
   theme_bw()
 
 ```
-# Proportion of positive test results separated by site ID and pathogen. 
-# The only pathogens detected were Flavivirus and West Nile, and the prevalence
-# of both viruses was higher in Woods Hole than Disney.
-
+Proportion of positive test results separated by site ID and pathogen. The only pathogens detected were *Flavivirus* and West Nile, and the prevalence of both viruses was higher in Woods Hole than Disney.
