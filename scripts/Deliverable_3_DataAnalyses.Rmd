@@ -17,6 +17,7 @@ library(tidyverse)
 library(here)
 library(cowplot)
 library(viridis)
+library(MASS)
 ```
 
 ```{r}
@@ -70,28 +71,17 @@ poisson1 <- glm(total ~ siteID * season,
 
 summary(poisson1)
 
-#Performing an ANOVA on test results with season and site id
-model1 <- aov(testResult_mos ~ siteID * season, data = temp_mos_season)
+plot(poisson1, which = 1)
+poisson1$deviance / poisson1$df.residual
 
-summary(model1)
-TukeyHSD(model1)
+#Poisson GLM is overdispersed, default to negative binomial
+siteID_season_nb <- glm.nb(total ~ siteID * season, 
+               data = temp_mos_season)
 
-par(mfrow = c(1, 2))
-plot(model1, which = c(2, 3))
+summary(siteID_season_nb)
 
-#Additive model
-additive_model <- aov(testResult_mos ~ siteID + season, data = temp_mos_season)
-
-summary(additive_model)
-TukeyHSD(additive_model)
-
-par(mfrow = c(1, 2))
-plot(additive_model, which = c(2, 3))
-
-#We performed a two-way ANOVA to test whether the proportion of positive 
-#mosquito test results were not associated with the site ID, the season of the year, 
-#or the interaction of the two. None of the variables listed above had a 
-#significant relationship (all p values > 0.85).
+plot(siteID_season_nb, which = 1)
+siteID_season_nb$deviance / siteID_season_nb$df.residual
 ```
 
 ```{r}
