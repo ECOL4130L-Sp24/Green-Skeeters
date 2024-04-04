@@ -63,6 +63,13 @@ temp_mos_season
 ```
 **KF comment: the model below is not currently using an appropriate response variable since "testResult_mos" represents the positive/negative groups, not values**
 ```{r}
+#Poisson regression for "total" vs site * season
+poisson1 <- glm(total ~ siteID * season, 
+            data = temp_mos_season,
+            family = poisson)
+
+summary(poisson1)
+
 #Performing an ANOVA on test results with season and site id
 model1 <- aov(testResult_mos ~ siteID * season, data = temp_mos_season)
 
