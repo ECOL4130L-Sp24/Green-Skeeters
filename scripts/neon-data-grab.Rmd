@@ -35,10 +35,10 @@ mosquito <- "DP1.10041.001"
 my_sites <- c("DSNY", "HARV", "MOAB","WOOD")
 
 # Start date (as YYYY-MM)
-start_date <- "2016-04" #"2017-08"
+start_date <- "2016-04" 
 
 # End date (as YYYY-MM)
-end_date <- "2022-10" #"2022-06"
+end_date <- "2022-10" 
 
 ```
 
