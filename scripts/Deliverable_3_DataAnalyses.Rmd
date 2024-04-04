@@ -31,22 +31,22 @@ mosquito_clean <- read_csv(here("data", "processed", "mosquito_clean.csv"))
 mosquito_binary <- mosquito_clean %>% 
   mutate(testResult_mos= ifelse(testResult=="Positive",1,0),
          collectDate = floor_date(endCollectDate, "day")) %>% 
-  select(-startCollectDate, -endCollectDate)
+  dplyr::select(-startCollectDate, -endCollectDate)
 ```
 
 ```{r}
 #Joining data sheets, making a new season column and dropping unneeded variables
 mosquito_day <- mosquito_clean %>% 
-  select(-startCollectDate) %>% 
+  dplyr::select(-startCollectDate) %>% 
   mutate(collectDate = as_date(endCollectDate)) %>% 
-  select(-endCollectDate) 
+  dplyr::select(-endCollectDate) 
 
 temp_day_join <- temp_day %>% 
   mutate(collectDate = as_date(collectDate))
 
 temp_mos_raw <-
   inner_join(mosquito_binary, temp_day_join) %>% 
-  select(-testResult)
+  dplyr::select(-testResult)
 
 temp_mos_season <- temp_mos_raw %>% 
   mutate(month = month(collectDate),
