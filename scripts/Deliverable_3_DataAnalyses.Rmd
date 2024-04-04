@@ -112,7 +112,7 @@ ggplot(data = temp_mos_season_prop,
 Proportion of viral disease presence in mosquitoes separated by season of the year and NEON site from which data was gathered (DSNY = Disney World, Orlando, Florida; HARV = Cambridge, MA; MOAB = Moab, Utah; WOOD = Woods Hole, Massachussetts. The only positive test results occurred in summer, with Woods Hole, MA, having the highest proportion of positives.
 ```{r}
 #Running a linear model on temperature and proportion of positive results 
-prop_positive_lm <- lm(prop_pos ~ temperature, data = temp_mos_season_prop)
+prop_positive_lm <- lm(prop_pos ~ mean_temp, data = temp_mos_season_prop)
 
 ```
 
