@@ -17,7 +17,6 @@ library(tidyverse)
 library(here)
 library(cowplot)
 library(viridis)
-library(MASS)
 ```
 
 ```{r}
@@ -55,9 +54,9 @@ temp_mos_season <- temp_mos_raw %>%
                                 ifelse(month %in% c(12,01,02), "winter",
                                         ifelse(month %in% c(03,04,05), "spring",
                                                 "NA"))))) %>% 
-  select(siteID, season, testResult_mos, temperature) %>% 
-  summarize(mean_temp = mean(temperature)) %>% 
-  group_by(siteID, season, testResult_mos, mean_temp) %>% 
+  dplyr::select(siteID, season, testResult_mos, avg_temp) %>% 
+  summarize(mean_temp = mean(avg_temp)) %>% 
+  dplyr::group_by(siteID, season, testResult_mos, mean_temp) %>% 
   summarize(total = n()) %>% 
   arrange(-testResult_mos, total)
 
@@ -67,6 +66,8 @@ temp_mos_season
 **KF comment: the model below is not currently using an appropriate response variable since "testResult_mos" represents the positive/negative groups, not values**
 ```{r}
 #Poisson regression for "total" vs site * season
+library(MASS)
+#Loading package here because it is naughty
 poisson1 <- glm(total ~ siteID * season, 
             data = temp_mos_season,
             family = poisson)
