@@ -79,7 +79,6 @@ temp_month %>%
 
 mosquito_clean %>% 
   write_csv(here("data", "processed", "mosquito_clean.csv"))
-
 ```
 
 ```{r}
