@@ -54,7 +54,7 @@ list2env((loadByProduct(dpID = temperature,
                         startdate = start_date,
                         enddate = end_date)),
          .GlobalEnv)
-.
+
 ```
 # Write metadata and raw data as a CSV
 ```{r save metadata csv}
