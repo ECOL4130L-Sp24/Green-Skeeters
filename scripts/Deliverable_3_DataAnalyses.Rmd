@@ -54,10 +54,8 @@ temp_mos_season <- temp_mos_raw %>%
                                 ifelse(month %in% c(12,01,02), "winter",
                                         ifelse(month %in% c(03,04,05), "spring",
                                                 "NA"))))) %>% 
-  dplyr::select(siteID, season, testResult_mos, avg_temp) %>% 
-  summarize(mean_temp = mean(avg_temp)) %>% 
-  dplyr::group_by(siteID, season, testResult_mos, mean_temp) %>% 
-  summarize(total = n()) %>% 
+  dplyr::group_by(siteID, season, testResult_mos) %>%
+  summarize(mean_temp = mean(avg_temp, na.rm = TRUE), total = n()) %>% 
   arrange(-testResult_mos, total)
 
 temp_mos_season
