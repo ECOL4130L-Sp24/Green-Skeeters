@@ -32,20 +32,19 @@ temperature <- "DP1.00003.001"
 mosquito <- "DP1.10041.001"
 
 # Focal sites
-my_sites <- c("DSNY", "MOAB","WOOD")
+my_sites <- c("DSNY", "HARV", "MOAB","WOOD")
 
 # Start date (as YYYY-MM)
-start_date <- NA #"2017-08"
+start_date <- "2016-04" #"2017-08"
 
 # End date (as YYYY-MM)
-end_date <- NA #"2022-06"
+end_date <- "2022-10" #"2022-06"
 
 ```
 
 # Temperature: 
 
 # Pull temperature data from NEON
-
 
 ```{r}
 
@@ -74,11 +73,11 @@ TAAT_30min %>%
 ## Pull mosquito data from NEON
 ```{r} 
 
-list2env((loadByProduct(dpID = Mosquito, 
+list2env((loadByProduct(dpID = mosquito, 
                         site = my_sites, 
-                        include.provisional = TRUE)),
-                        #startdate = start_date,
-                        #enddate = end_date)),
+                        include.provisional = TRUE,
+                        startdate = start_date,
+                        enddate = end_date)),
          .GlobalEnv)
 ```
 
@@ -97,6 +96,6 @@ mos_pathogenpooling %>%
 
 ```{r}
 # putting mosquito data in raw folder
-mos_pathogenresults%>% 
+mos_pathogenresults %>% 
   write_csv(here("data", "raw", "mos_pathogenresults.csv"))
 ```
