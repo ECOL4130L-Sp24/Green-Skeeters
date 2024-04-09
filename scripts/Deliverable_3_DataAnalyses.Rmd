@@ -84,7 +84,7 @@ summary(siteID_season_nb)
 plot(siteID_season_nb, which = 1)
 siteID_season_nb$deviance / siteID_season_nb$df.residual
 ```
-Negative binomial is way overdispersed -- do we roll with it?
+#Negative binomial is way overdispersed -- do we roll with it?
 
 ```{r}
 #Graph of proportion of positive results over seasons across sites
@@ -113,6 +113,7 @@ Proportion of viral disease presence in mosquitoes separated by season of the ye
 ```{r}
 #Running a linear model on temperature and proportion of positive results 
 prop_positive_lm <- lm(prop_pos ~ mean_temp, data = temp_mos_season_prop)
+summary(prop_positive_lm)
 
 ```
 
@@ -138,4 +139,4 @@ ggplot(data = temp_mos_pathogen,
   theme_bw()
 
 ```
-Proportion of positive test results separated by site ID and pathogen. The only pathogens detected were *Flavivirus* and West Nile, and the prevalence of both viruses was higher in Woods Hole than Disney.
+#Proportion of positive test results separated by site ID and pathogen. The pathogens detected were Flavivirus, West Nile, 	Orthobunyavirus sp., and California encephalitis virus. The prevalence of both Flavirus and West Nile virus was higher in Woods Hole than Disney. Moab had no Flavivirus or West Nile virus, but had the highest proportion of positive results. The positive results came from California encephalitis virus and Orthobunyavirus sp.
