@@ -140,3 +140,27 @@ ggplot(data = temp_mos_pathogen,
 
 ```
 #Proportion of positive test results separated by site ID and pathogen. The pathogens detected were Flavivirus, West Nile, 	Orthobunyavirus sp., and California encephalitis virus. The prevalence of both Flavirus and West Nile virus was higher in Woods Hole than Disney. Moab had no Flavivirus or West Nile virus, but had the highest proportion of positive results. The positive results came from California encephalitis virus and Orthobunyavirus sp.
+
+#Making a graph showing mean temperature against proportionon of positive results. 
+```{r}
+ggplot(data = temp_mos_season_prop, 
+         aes(x = mean_temp, 
+             y = prop_pos,
+             col = siteID)) +
+    geom_jitter(cex = 3,
+                height = 0,
+                width = 0.1) +
+  labs( x = "Mean temperature of season", y = "Proportion of positive test results") +
+  theme_bw()
+```
+
+#Using a linear regression to evaluate the relationship between proportion postive results and mean temperature. 
+```{r}
+cor_value <- cor(x = temp_mos_season_prop$mean_temp, 
+                 y = temp_mos_season_prop$prop_pos)
+print(cor_value)
+model1 <- lm(prop_pos ~ mean_temp, data = temp_mos_season_prop)
+summary(model1)
+cor_value^2
+```
+#The relationship came back not significant p value= .841.
