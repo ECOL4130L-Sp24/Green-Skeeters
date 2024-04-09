@@ -109,7 +109,7 @@ ggplot(data = temp_mos_season_prop,
 
 **KF note: remember that in .Rmd you can write in plain-text between code chunks! Using a single # will set a line as a "top level" header in your knit document. And the .Rmd visible width auto-adjusts and auto-wraps base on your computer screen so you also don't have to worry about enforcing specific line breaks! :) **
 
-Proportion of viral disease presence in mosquitoes separated by season of the year and NEON site from which data was gathered (DSNY = Disney World, Orlando, Florida; HARV = Cambridge, MA; MOAB = Moab, Utah; WOOD = Woods Hole, Massachussetts. The only positive test results occurred in summer, with Woods Hole, MA, having the highest proportion of positives.
+#Proportion of viral disease presence in mosquitoes separated by season of the year and NEON site from which data was gathered (DSNY = Disney World, Orlando, Florida; HARV = Cambridge, MA; MOAB = Moab, Utah; WOOD = Woods Hole, Massachussetts. The only positive test results occurred in summer, with Moab, Ut, having the highest proportion of positives.
 ```{r}
 #Running a linear model on temperature and proportion of positive results 
 prop_positive_lm <- lm(prop_pos ~ mean_temp, data = temp_mos_season_prop)
