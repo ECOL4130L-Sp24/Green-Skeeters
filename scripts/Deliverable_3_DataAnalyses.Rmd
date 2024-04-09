@@ -163,4 +163,4 @@ model1 <- lm(prop_pos ~ mean_temp, data = temp_mos_season_prop)
 summary(model1)
 cor_value^2
 ```
-#The relationship came back not significant p value= .841.
+#The relationship came back not significant (F(1,13)=.042, p=.84)
