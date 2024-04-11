@@ -58,7 +58,7 @@ temp_mos_season <- temp_mos_raw %>%
   summarize(mean_temp = mean(avg_temp, na.rm = TRUE), total = n()) %>% 
   arrange(-testResult_mos, total)
 
-temp_mos_season
+head(temp_mos_season)
 
 ```
 **KF comment: the model below is not currently using an appropriate response variable since "testResult_mos" represents the positive/negative groups, not values**
@@ -84,7 +84,7 @@ summary(siteID_season_nb)
 plot(siteID_season_nb, which = 1)
 siteID_season_nb$deviance / siteID_season_nb$df.residual
 ```
-Negative binomial is way overdispersed -- do we roll with it?
+Negative binomial is way overdispersed -- do we roll with it? Okayed by Dr.Farrell
 
 ```{r}
 #Graph of proportion of positive results over seasons across sites
@@ -139,3 +139,27 @@ ggplot(data = temp_mos_pathogen,
 
 ```
 Proportion of positive test results separated by site ID and pathogen. The only pathogens detected were *Flavivirus* and West Nile, and the prevalence of both viruses was higher in Woods Hole than Disney.
+
+
+```{r}
+# Count of positive and negative results for each temperature category
+testResult_temp_sum <- temp_mos_season %>%
+  group_by(siteID, season) %>% 
+  pivot_wider(names_from= testResult_mos, values_from = total)
+  group_by(mean_temp) %>%
+  summarise(
+    positive_count = sum(testResult_mos, total),
+    negative_count = sum(1 - testResult_mos, total))
+
+# Create a bar plot to visualize the counts of positive and negative results for each temperature category
+ggplot(testResult_temp_sum, aes(x = mean_temp)) +
+  geom_bar(aes(y = positive_count), stat = "identity", fill = "blue", alpha = 0.5) +
+  geom_bar(aes(y = negative_count), stat = "identity", fill = "red", alpha = 0.5) +
+  labs(x = "Mean Temperature", y = "Count of Test Results", title = "Count of Test Results by Mean Temperature") +
+  scale_fill_manual(values = c("blue", "red"), name = "Test Result",
+                    labels = c("Positive", "Negative")) +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(min(testResult_temp_sum$mean_temp), max(testResult_temp_sum$mean_temp), by = 5))  
+
+```
+
