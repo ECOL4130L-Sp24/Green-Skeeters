@@ -115,6 +115,23 @@ ggplot(data = temp_mos_season_prop,
 prop_positive_lm <- lm(prop_pos ~ mean_temp, data = temp_mos_season_prop)
 summary(prop_positive_lm)
 
+par(mfrow = c(1, 3))
+
+plot(model1, which = 1:3)
+#Fits assumptions-ish
+
+summary(prop_positive_lm)
+#insignificant
+```
+```{r}
+#Graph of linear model
+ggplot(data = temp_mos_season_prop, 
+         aes(x = mean_temp, 
+             y = prop_pos,
+             col = siteID)) +
+    geom_point() +
+  labs( x = "Mean temperature", y = "Proportion of positive test results") +
+  theme_bw()
 ```
 
 ```{r}
