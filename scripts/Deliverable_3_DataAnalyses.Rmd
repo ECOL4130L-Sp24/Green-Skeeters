@@ -181,3 +181,25 @@ summary(model1)
 cor_value^2
 ```
 #The relationship came back not significant (F(1,13)=.042, p=.84)
+
+```{r}
+# Count of positive and negative results for each temperature category
+testResult_temp_sum <- temp_mos_season %>%
+  group_by(siteID, season) %>% 
+  pivot_wider(names_from= testResult_mos, values_from = total)
+  group_by(mean_temp) %>%
+  summarise(
+    positive_count = sum(testResult_mos, total),
+    negative_count = sum(1 - testResult_mos, total))
+
+# Create a bar plot to visualize the counts of positive and negative results for each temperature category
+ggplot(testResult_temp_sum, aes(x = mean_temp)) +
+  geom_bar(aes(y = positive_count), stat = "identity", fill = "blue", alpha = 0.5) +
+  geom_bar(aes(y = negative_count), stat = "identity", fill = "red", alpha = 0.5) +
+  labs(x = "Mean Temperature", y = "Count of Test Results", title = "Count of Test Results by Mean Temperature") +
+  scale_fill_manual(values = c("blue", "red"), name = "Test Result",
+                    labels = c("Positive", "Negative")) +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(min(testResult_temp_sum$mean_temp), max(testResult_temp_sum$mean_temp), by = 5))  
+```
+
