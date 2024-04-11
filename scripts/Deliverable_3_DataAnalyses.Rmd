@@ -58,7 +58,7 @@ temp_mos_season <- temp_mos_raw %>%
   summarize(mean_temp = mean(avg_temp, na.rm = TRUE), total = n()) %>% 
   arrange(-testResult_mos, total)
 
-head(temp_mos_season)
+temp_mos_season
 
 ```
 **KF comment: the model below is not currently using an appropriate response variable since "testResult_mos" represents the positive/negative groups, not values**
@@ -84,7 +84,7 @@ summary(siteID_season_nb)
 plot(siteID_season_nb, which = 1)
 siteID_season_nb$deviance / siteID_season_nb$df.residual
 ```
-Negative binomial is way overdispersed -- do we roll with it? Okayed by Dr.Farrell
+#Negative binomial is way overdispersed -- do we roll with it?
 
 ```{r}
 #Graph of proportion of positive results over seasons across sites
@@ -109,11 +109,29 @@ ggplot(data = temp_mos_season_prop,
 
 **KF note: remember that in .Rmd you can write in plain-text between code chunks! Using a single # will set a line as a "top level" header in your knit document. And the .Rmd visible width auto-adjusts and auto-wraps base on your computer screen so you also don't have to worry about enforcing specific line breaks! :) **
 
-Proportion of viral disease presence in mosquitoes separated by season of the year and NEON site from which data was gathered (DSNY = Disney World, Orlando, Florida; HARV = Cambridge, MA; MOAB = Moab, Utah; WOOD = Woods Hole, Massachussetts. The only positive test results occurred in summer, with Woods Hole, MA, having the highest proportion of positives.
+#Proportion of viral disease presence in mosquitoes separated by season of the year and NEON site from which data was gathered (DSNY = Disney World, Orlando, Florida; HARV = Cambridge, MA; MOAB = Moab, Utah; WOOD = Woods Hole, Massachussetts. The only positive test results occurred in summer, with Moab, Ut, having the highest proportion of positives.
 ```{r}
 #Running a linear model on temperature and proportion of positive results 
 prop_positive_lm <- lm(prop_pos ~ mean_temp, data = temp_mos_season_prop)
+summary(prop_positive_lm)
 
+par(mfrow = c(1, 3))
+
+plot(model1, which = 1:3)
+#Fits assumptions-ish
+
+summary(prop_positive_lm)
+#insignificant
+```
+```{r}
+#Graph of linear model
+ggplot(data = temp_mos_season_prop, 
+         aes(x = mean_temp, 
+             y = prop_pos,
+             col = siteID)) +
+    geom_point() +
+  labs( x = "Mean temperature", y = "Proportion of positive test results") +
+  theme_bw()
 ```
 
 ```{r}
@@ -138,28 +156,28 @@ ggplot(data = temp_mos_pathogen,
   theme_bw()
 
 ```
-Proportion of positive test results separated by site ID and pathogen. The only pathogens detected were *Flavivirus* and West Nile, and the prevalence of both viruses was higher in Woods Hole than Disney.
+#Proportion of positive test results separated by site ID and pathogen. The pathogens detected were Flavivirus, West Nile, 	Orthobunyavirus sp., and California encephalitis virus. The prevalence of both Flavirus and West Nile virus was higher in Woods Hole than Disney. Moab had no Flavivirus or West Nile virus, but had the highest proportion of positive results. The positive results came from California encephalitis virus and Orthobunyavirus sp.
 
-
+#Making a graph showing mean temperature against proportionon of positive results. 
 ```{r}
-# Count of positive and negative results for each temperature category
-testResult_temp_sum <- temp_mos_season %>%
-  group_by(siteID, season) %>% 
-  pivot_wider(names_from= testResult_mos, values_from = total)
-  group_by(mean_temp) %>%
-  summarise(
-    positive_count = sum(testResult_mos, total),
-    negative_count = sum(1 - testResult_mos, total))
-
-# Create a bar plot to visualize the counts of positive and negative results for each temperature category
-ggplot(testResult_temp_sum, aes(x = mean_temp)) +
-  geom_bar(aes(y = positive_count), stat = "identity", fill = "blue", alpha = 0.5) +
-  geom_bar(aes(y = negative_count), stat = "identity", fill = "red", alpha = 0.5) +
-  labs(x = "Mean Temperature", y = "Count of Test Results", title = "Count of Test Results by Mean Temperature") +
-  scale_fill_manual(values = c("blue", "red"), name = "Test Result",
-                    labels = c("Positive", "Negative")) +
-  theme_minimal() +
-  scale_x_continuous(breaks = seq(min(testResult_temp_sum$mean_temp), max(testResult_temp_sum$mean_temp), by = 5))  
-
+ggplot(data = temp_mos_season_prop, 
+         aes(x = mean_temp, 
+             y = prop_pos,
+             col = siteID)) +
+    geom_jitter(cex = 3,
+                height = 0,
+                width = 0.1) +
+  labs( x = "Mean temperature of season", y = "Proportion of positive test results") +
+  theme_bw()
 ```
 
+#Using a linear regression to evaluate the relationship between proportion postive results and mean temperature. 
+```{r}
+cor_value <- cor(x = temp_mos_season_prop$mean_temp, 
+                 y = temp_mos_season_prop$prop_pos)
+print(cor_value)
+model1 <- lm(prop_pos ~ mean_temp, data = temp_mos_season_prop)
+summary(model1)
+cor_value^2
+```
+#The relationship came back not significant (F(1,13)=.042, p=.84)
