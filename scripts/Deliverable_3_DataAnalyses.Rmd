@@ -117,12 +117,13 @@ summary(prop_positive_lm)
 
 par(mfrow = c(1, 3))
 
-plot(model1, which = 1:3)
+plot(prop_positive_lm, which = 1:3)
 #Fits assumptions-ish
 
 summary(prop_positive_lm)
 #insignificant
 ```
+
 ```{r}
 #Graph of linear model
 ggplot(data = temp_mos_season_prop, 
@@ -169,7 +170,7 @@ ggplot(data = temp_mos_season_prop,
                 width = 0.1) +
   labs( x = "Mean temperature of season", y = "Proportion of positive test results") +
   theme_bw()
-```
+```d
 
 #Using a linear regression to evaluate the relationship between proportion postive results and mean temperature. 
 ```{r}

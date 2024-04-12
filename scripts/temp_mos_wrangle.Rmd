@@ -110,7 +110,8 @@ ggplot(data = temp_month,
                      col = siteID)) + 
   geom_point() + 
   geom_line() +
-  theme_bw()
+  theme_bw() +
+  labs( x = "Month", y = "Average Temperature") 
 
 ifelse(!dir.exists(here ("outputs")), dir.create(here("outputs")), "Folder exists already")
 
