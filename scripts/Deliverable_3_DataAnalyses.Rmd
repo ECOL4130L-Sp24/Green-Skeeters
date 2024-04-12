@@ -170,7 +170,8 @@ ggplot(data = temp_mos_season_prop,
                 width = 0.1) +
   labs( x = "Mean temperature of season", y = "Proportion of positive test results") +
   theme_bw()
-```d
+```
+
 
 #Using a linear regression to evaluate the relationship between proportion postive results and mean temperature. 
 ```{r}
