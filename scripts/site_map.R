@@ -16,8 +16,7 @@ sites_all <- read_csv(here("data", "NEON_Field_Site_Metadata_20231026.csv")) %>%
 # If typing manually, site names in all-caps inside quotation marks
 # e.g., mySites <- c('GRSM','HEAL','OSBS','SERC','TALL','TEAK')
 
-mySites <- c("ARIK", "BIGC", "HOPB", "KING", "LECO", "LEWI", "MAYF", "MCDI", 
-             "POSE", "REDB", "WALK", "WLOU")
+mySites <- c("DSNY", "HARV", "MOAB", "WOOD")
 
 ## Subset "sites" object for your project sites
 sites <- sites_all %>% 
