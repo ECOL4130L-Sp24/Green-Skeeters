@@ -102,7 +102,7 @@ ggplot(data = temp_mos_season_prop,
     geom_jitter(cex = 3,
                 height = 0,
                 width = 0.1) +
-  labs( x = "Season", y = "Proportion of positive test results") +
+  labs( x = "Season", y = "Proportion positive test results") +
   theme_bw()
   
 ```
@@ -131,7 +131,11 @@ ggplot(data = temp_mos_season_prop,
              y = prop_pos,
              col = siteID)) +
     geom_point() +
+<<<<<<< HEAD
   labs( x = "Mean temperature (°C)", y = "Proportion of positive test results") +
+=======
+  labs(x = "Mean temperature", y = "Proportion positive test results") +
+>>>>>>> 4c93863dd06ae09aa310e812f9faad4cce71d65b
   theme_bw()
 ```
 
@@ -144,7 +148,8 @@ temp_mos_pathogen <- temp_mos_raw %>%
   pivot_wider(names_from = testResult_mos,
               values_from = total,
               values_fill = 0) %>% 
-  mutate(prop_pos = `1` / sum(`0` + `1`))
+  mutate(prop_pos = `1` / sum(`0` + `1`)) %>% 
+  filter(prop_pos > 0)
 
 ggplot(data = temp_mos_pathogen, 
          aes(x = siteID, 
@@ -153,11 +158,11 @@ ggplot(data = temp_mos_pathogen,
     geom_jitter(cex = 3,
                 height = 0,
                 width = 0.1) +
-  labs( x = "Site", y = "Proportion of positive test results", color = "Virus") +
+  labs( x = "Site", y = "Proportion positive test results", color = "Virus") +
   theme_bw()
 
 ```
-#Proportion of positive test results separated by site ID and pathogen. The pathogens detected were Flavivirus, West Nile, 	Orthobunyavirus sp., and California encephalitis virus. The prevalence of both Flavirus and West Nile virus was higher in Woods Hole than Disney. Moab had no Flavivirus or West Nile virus, but had the highest proportion of positive results. The positive results came from California encephalitis virus and Orthobunyavirus sp.
+Proportion of positive test results separated by site ID and pathogen. The pathogens detected were Flavivirus, West Nile, 	Orthobunyavirus sp., and California encephalitis virus. The prevalence of both Flavirus and West Nile virus was higher in Woods Hole than Disney. Moab had no Flavivirus or West Nile virus, but had the highest proportion of positive results. The positive results came from California encephalitis virus and Orthobunyavirus sp.
 
 #Making a graph showing mean temperature against proportionon of positive results. 
 ```{r}
@@ -188,8 +193,7 @@ cor_value^2
 # Count of positive and negative results for each temperature category
 testResult_temp_sum <- temp_mos_season %>%
   group_by(siteID, season) %>% 
-  pivot_wider(names_from= testResult_mos, values_from = total)
-  group_by(mean_temp) %>%
+  pivot_wider(names_from= testResult_mos, values_from = total) %>% 
   summarise(
     positive_count = sum(testResult_mos, total),
     negative_count = sum(1 - testResult_mos, total))
