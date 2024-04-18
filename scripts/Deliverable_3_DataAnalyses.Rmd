@@ -131,7 +131,7 @@ ggplot(data = temp_mos_season_prop,
              y = prop_pos,
              col = siteID)) +
     geom_point() +
-  labs( x = "Mean temperature", y = "Proportion of positive test results") +
+  labs( x = "Mean temperature (°C)", y = "Proportion of positive test results") +
   theme_bw()
 ```
 
@@ -168,7 +168,7 @@ ggplot(data = temp_mos_season_prop,
     geom_jitter(cex = 3,
                 height = 0,
                 width = 0.1) +
-  labs( x = "Mean temperature of season", y = "Proportion of positive test results") +
+  labs( x = "Mean temperature of season (°C)", y = "Proportion of positive test results") +
   theme_bw()
 ```
 

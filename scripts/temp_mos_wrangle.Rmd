@@ -24,6 +24,8 @@ temp_raw <- read_csv(here("Data", "Raw", "TAAT_30min.csv"))
 
 mosquito_path_raw <- read_csv(here("Data", "Raw", "mos_pathogenresults.csv"))
 
+temp_month <- read_csv(here("Data", "Processed", "temp_month.csv"))
+
 ```
 
 ##Cleaning each tibble:
@@ -111,7 +113,7 @@ ggplot(data = temp_month,
   geom_point() + 
   geom_line() +
   theme_bw() +
-  labs( x = "Month", y = "Average Temperature") 
+  labs( x = "Month", y = "Average Temperature (°C)") 
 
 ifelse(!dir.exists(here ("outputs")), dir.create(here("outputs")), "Folder exists already")
 
