@@ -129,14 +129,11 @@ summary(prop_positive_lm)
 ggplot(data = temp_mos_season_prop, 
          aes(x = mean_temp, 
              y = prop_pos,
-             col = siteID)) +
-    geom_point() +
-<<<<<<< HEAD
-  labs( x = "Mean temperature (°C)", y = "Proportion of positive test results") +
-=======
-  labs(x = "Mean temperature", y = "Proportion positive test results") +
->>>>>>> 4c93863dd06ae09aa310e812f9faad4cce71d65b
-  theme_bw()
+             fill = siteID)) +
+    geom_point(cex = 5, pch = 21) +
+  labs(x = "Mean temperature (C)", y = "Proportion positive test results") +
+  theme_bw() +
+  guides(fill = guide_legend(title = "Site"))
 ```
 
 ```{r}
@@ -154,12 +151,13 @@ temp_mos_pathogen <- temp_mos_raw %>%
 ggplot(data = temp_mos_pathogen, 
          aes(x = siteID, 
              y = prop_pos,
-             col = testPathogenName)) +
-    geom_jitter(cex = 3,
+             fill = testPathogenName)) +
+    geom_jitter(cex = 5, pch = 21,
                 height = 0,
                 width = 0.1) +
   labs( x = "Site", y = "Proportion positive test results", color = "Virus") +
-  theme_bw()
+  theme_bw() +
+  guides(fill = guide_legend(title = "Virus"))
 
 ```
 Proportion of positive test results separated by site ID and pathogen. The pathogens detected were Flavivirus, West Nile, 	Orthobunyavirus sp., and California encephalitis virus. The prevalence of both Flavirus and West Nile virus was higher in Woods Hole than Disney. Moab had no Flavivirus or West Nile virus, but had the highest proportion of positive results. The positive results came from California encephalitis virus and Orthobunyavirus sp.
